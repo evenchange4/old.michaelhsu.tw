@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>HTTP Server 大小事 | Michael Hsu.tw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Web server / Application server 傻傻分不清楚 ？
+都通稱是 server，但確有些許微妙的不同，小時候一直很不懂之間的差別，直到最近才搞得比較清楚一點。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP Server 大小事">
+<meta property="og:url" content="http://michaelhsu.tw/2013/07/04/server/">
+<meta property="og:site_name" content="Michael Hsu.tw">
+<meta property="og:description" content="Web server / Application server 傻傻分不清楚 ？
+都通稱是 server，但確有些許微妙的不同，小時候一直很不懂之間的差別，直到最近才搞得比較清楚一點。">
+<meta property="og:image" content="http://media-cache-ec2.pinimg.com/originals/c8/42/c5/c842c5e2cbe2e7e3a726d8589c9c219c.jpg">
+<meta property="og:image" content="http://media-cache-ak1.pinimg.com/originals/58/f7/d1/58f7d140cf1a22a37bcc46efe292375d.jpg">
+<meta property="og:image" content="http://media-cache-ak0.pinimg.com/originals/5e/5f/d7/5e5fd7a0f14c6f1edc7de6b67fc3c6a2.jpg">
+<meta property="og:image" content="http://media-cache-ak1.pinimg.com/originals/d8/d9/85/d8d985f9bb711421bd18a7e87d49d15e.jpg">
+<meta property="og:image" content="http://media-cache-ec2.pinimg.com/originals/29/37/15/29371534a2f8f37492976a983fa8e710.jpg">
+<meta property="og:image" content="http://media-cache-ec3.pinimg.com/originals/b6/e1/be/b6e1be1319facc07a91f9c5d9c1909df.jpg">
+<meta property="og:image" content="http://media-cache-ak3.pinimg.com/originals/23/6b/81/236b8188125600d8d845ceb78594681a.jpg">
+<meta property="og:image" content="http://media-cache-ec2.pinimg.com/originals/8e/d2/a2/8ed2a27ed9dbed0f503eb2df6217dfc1.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP Server 大小事">
+<meta name="twitter:description" content="Web server / Application server 傻傻分不清楚 ？
+都通稱是 server，但確有些許微妙的不同，小時候一直很不懂之間的差別，直到最近才搞得比較清楚一點。">
+<meta name="twitter:creator" content="@evenchange4">
+
+  
+    <link rel="alternative" href="http://feeds.feedburner.com/michael-hsu-tw" title="Michael Hsu.tw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33845990-9']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <!-- <header id="header"> -->
+  <!-- <div id="banner"></div> -->
+  <!-- <div id="header-outer" class="outer"> -->
+<!--     <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Michael Hsu.tw</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+        </h2>
+      
+    </div> -->
+
+
+
+  <!-- </div> -->
+<!-- </header> -->
+
+<header class="site-head" >
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://about.michaelhsu.tw/">About</a>
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw">Subscription</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="http://feeds.feedburner.com/michael-hsu-tw" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap" style="z-index:1">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://michaelhsu.tw"></form>
+      </div>
+    </div>
+    
+  <div class="vertical">
+    <div class="site-head-content inner">
+      <div id="header-title" class="inner">
+         
+          <a class="blog-logo" href="/">
+            <img src="http://www.gravatar.com/avatar/66799cbbe4d891ad4eca39b95119fe18?s=100" alt="Blog Logo"/>
+          </a> 
+        
+        <h1 id="logo-wrap">
+          <a href="/" id="logo">Michael Hsu.tw</a>
+        </h1>
+        
+          <h2 id="subtitle-wrap">
+            <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+          </h2>
+        
+      </div> 
+    </div>
+  </div> <!-- end vertical -->
+</header>
+      <div class="outer">
+        <section id="main"><!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-server" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HTTP Server 大小事
+    </h1>
+  
+
+        <a href="/2013/07/04/server/" class="article-date">
+  <time datetime="2013-07-04T05:54:21.000Z" itemprop="datePublished">July 04, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <div id="toc" class="toc-article">
+            <strong class="toc-title">Outline</strong>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Web_server_/_Application_server_傻傻分不清楚_？"><span class="toc-number">1.</span> <span class="toc-text">Web server / Application server 傻傻分不清楚 ？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web_server"><span class="toc-number">2.</span> <span class="toc-text">Web server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#什麼是_Proxy_Server_、_Reverse_Proxy_Server？"><span class="toc-number">3.</span> <span class="toc-text">什麼是 Proxy Server 、 Reverse Proxy Server？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Proxy_Server（代理伺服器）"><span class="toc-number">3.1.</span> <span class="toc-text">Proxy Server（代理伺服器）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reverse_Proxy_Server（反向代理伺服器）"><span class="toc-number">3.2.</span> <span class="toc-text">Reverse Proxy Server（反向代理伺服器）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Application_server"><span class="toc-number">4.</span> <span class="toc-text">Application server</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什麼是_Rack？"><span class="toc-number">4.1.</span> <span class="toc-text">什麼是 Rack？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比較_Rails_各種_App_server"><span class="toc-number">4.2.</span> <span class="toc-text">比較 Rails 各種 App server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#現實世界的_App_server_怎麼運作"><span class="toc-number">4.3.</span> <span class="toc-text">現實世界的 App server 怎麼運作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#為什麼需要_Apache/Nginx_reverse_proxy_server？"><span class="toc-number">4.4.</span> <span class="toc-text">為什麼需要 Apache/Nginx reverse proxy server？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#現實中的_Requests"><span class="toc-number">4.5.</span> <span class="toc-text">現實中的 Requests</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OS_課程回顧："><span class="toc-number">5.</span> <span class="toc-text">OS 課程回顧：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Process_去取得_CPU_資源，很多_Process_去運用資源的方式有兩種"><span class="toc-number">5.0.1.</span> <span class="toc-text">Process 去取得 CPU 資源，很多 Process 去運用資源的方式有兩種</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#取得_process_的方法就得使用_Process_scheduler："><span class="toc-number">5.0.2.</span> <span class="toc-text">取得 process 的方法就得使用 Process scheduler：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#至於_multi-thread_的使用_CPU_資源又是另一個_Thread_Scheduling_的事情了"><span class="toc-number">5.0.3.</span> <span class="toc-text">至於 multi-thread 的使用 CPU 資源又是另一個 Thread Scheduling 的事情了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#總結："><span class="toc-number">5.0.4.</span> <span class="toc-text">總結：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#實作自己_Host_HTTP_server"><span class="toc-number">6.</span> <span class="toc-text">實作自己 Host HTTP server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reference"><span class="toc-number">7.</span> <span class="toc-text">Reference</span></a></li></ol>
+            </div>
+        
+
+        <h1 id="Web_server_/_Application_server_傻傻分不清楚_？">Web server / Application server 傻傻分不清楚 ？</h1>
+<p>都通稱是 server，但確有些許微妙的不同，小時候一直很不懂之間的差別，直到最近才搞得比較清楚一點。<br><a id="more"></a></p>
+<h1 id="Web_server">Web server</h1>
+<p>Apache、Nginx 都是 <code>web server</code> ，主要可以拿來 serve static files、serve dynamic web apps （ex: PHP 寫的）。注意！但是他們都不能夠直接拿來 serve <code>Ruby web apps</code>，必須要透過額外的 add-on 才行。<br>其中 Apache 應該是比較常聽到的架設選項，但是近年大家都偏好使用 Nginx 是因為他比較沒那麼肥大，而且速度比 Apache 快，所以變成了架設 server 的首選。<br>另外他們除了做 proxy server 外，也可以拿來做 Reverse Proxy Server ，因為彼此的特性不同，也常常混合者使用，例如拿 Nginx 來做 Reverse Proxy Server ，拿 Apache 來當做後面的 Web Server。</p>
+<p><img src="http://media-cache-ec2.pinimg.com/originals/c8/42/c5/c842c5e2cbe2e7e3a726d8589c9c219c.jpg" alt="Nginx vs Apache 比較圖表"></p>
+<h1 id="什麼是_Proxy_Server_、_Reverse_Proxy_Server？">什麼是 Proxy Server 、 Reverse Proxy Server？</h1>
+<h2 id="Proxy_Server（代理伺服器）">Proxy Server（代理伺服器）</h2>
+<p>他的工作是去各個 Web Server 抓取資料回來放在伺服器上來供用戶讀取下載，如此一來可以大幅減少到各個 Web server 抓取資料的時間。</p>
+<p><img src="http://media-cache-ak1.pinimg.com/originals/58/f7/d1/58f7d140cf1a22a37bcc46efe292375d.jpg" alt="proxy server"></p>
+<h2 id="Reverse_Proxy_Server（反向代理伺服器）">Reverse Proxy Server（反向代理伺服器）</h2>
+<p>他做的事情恰好相反，負責將用戶端的資料傳送（HTTP）給藏在 Reverse Proxy Server 後面的 Web Server，這些躲在後面的 Web Server 不會、也不能直接被用戶直接連結，只能經由 Reverse Proxy Server 代理傳送和接收資料，如此不僅可以保護後方 Web Server 被攻擊，同時還可提供負載平衡、快取以及資料加密的功能。</p>
+<blockquote>
+<p>When that server responds with an HTTP response, Apache/Nginx will forward the response back to the client. You will learn later why this is relevant.</p>
+</blockquote>
+<p><img src="http://media-cache-ak0.pinimg.com/originals/5e/5f/d7/5e5fd7a0f14c6f1edc7de6b67fc3c6a2.jpg" alt="Reverse Proxy Server"></p>
+<h1 id="Application_server">Application server</h1>
+<p>可以是很多語言寫的 app server，這邊拿 ROR 的 app server 來比較，通常你在 <code>rails new project</code> 的時候所預設 server 是 <code>WEBrick</code>，這就是一個 <code>app server</code>，所以你在 run <code>$ rails s</code> 的時候就會看到 <code>=&gt; Booting WEBrick</code>，這是因為 rails 內建的 app server 是 WEBrick，但是我們通常在部署的時候就不會使用 WEBrick 這樣的 app server，因為 <code>慢！</code>。</p>
+<p><img src="http://media-cache-ak1.pinimg.com/originals/d8/d9/85/d8d985f9bb711421bd18a7e87d49d15e.jpg" alt="rails default app server"></p>
+<p>所以我們通常會把 Rails 的 App server 給換掉，但是你可能會懷疑會什麼可以這樣直接換 app server 勒？答案是強大的 <code>Rack</code> 設計。</p>
+<h2 id="什麼是_Rack？">什麼是 <a href="https://github.com/rack/rack" target="_blank" rel="external">Rack</a>？</h2>
+<blockquote>
+<p>Rack: a Ruby Webserver Interface.<br>provides a minimal interface between webservers supporting Ruby and Ruby frameworks.</p>
+</blockquote>
+<p>Rack 是各種 web framework 與各種 app server 的橋梁（middleware），其中必須制定好規則也就是 <code>Rack SPEC</code>，簡單用圖來表示就是像這樣：</p>
+<p><img src="http://media-cache-ec2.pinimg.com/originals/29/37/15/29371534a2f8f37492976a983fa8e710.jpg" alt="Rack: app servers / web frameworks"></p>
+<h2 id="比較_Rails_各種_App_server">比較 Rails 各種 App server</h2>
+<p>很抱歉因為志志實在太熱愛寫 ROR 了，這邊就只能做 Rail 的 app server 比較了。</p>
+<ol>
+<li>Mongrel: <ul>
+<li>過時的 <code>雜種</code>。</li>
+<li>written in part Ruby part C</li>
+<li>no process monitoring，當調需要手動重啓。</li>
+</ul>
+</li>
+<li>WEBrick: <ul>
+<li>not fit for production</li>
+<li>written entirely in Ruby (慢)</li>
+<li>但是因為他是純 ruby 寫的，所以被設為預設（heroku 也是），不需額外安裝。</li>
+</ul>
+</li>
+<li>Unicorn:<ul>
+<li>fork of Mongrel，加上 process monitoring</li>
+<li>因為 make all processes listen on a single shared socket, instead of a separate socket for each process. 所以簡化了 reverse proxy 的設定。</li>
+</ul>
+</li>
+<li>Thin:<ul>
+<li>no process monitoring</li>
+<li>evented I/O</li>
+</ul>
+</li>
+<li>Puma:<ul>
+<li>forked from Mongrel</li>
+<li>purely multi-threaded</li>
+</ul>
+</li>
+<li>Phusion Passenger:<ul>
+<li>Dynamically adjusting the number of processes based on traffic</li>
+<li>written in C++, making it very fast.</li>
+</ul>
+</li>
+<li>Rainbows:</li>
+</ol>
+<h2 id="現實世界的_App_server_怎麼運作">現實世界的 App server 怎麼運作</h2>
+<p>在這多的 app servers 中，像是 <code>Phusion Passenger</code>, <code>Rainbows</code> 就可以直接透過 port 開在 80 來達到 directly exposed to the Internet。但是有些 app server 卻不建議這麼做，例如 <code>Mongrel</code>, <code>Unicorn</code>, <code>Thin</code>, <code>Puma</code>。他們需要放在 reverse proxy server 後面比較恰當。</p>
+<h2 id="為什麼需要_Apache/Nginx_reverse_proxy_server？">為什麼需要 Apache/Nginx reverse proxy server？</h2>
+<ol>
+<li>因為這些 app server 一次只能 handle 1 request concurrently，如果有兩個以上的 request，就必須要 run multiple app server instances（<code>app server cluster</code>），而這正是 Apache/Nginx 可以透過 reverse proxy，幫助你適當 <code>distributing requests between the instances in the cluster</code>，而且可以 buffer requests and responses 避免發生 <code>slow clients</code> 的情況發生。<blockquote>
+<p>Apache and Nginx are very good at doing many things at the same time because they’re either multithreaded or evented. </p>
+</blockquote>
+</li>
+<li>Web server 比起 App server 更適合來 serve static files。</li>
+<li>安全，避免 corrupted requests。</li>
+</ol>
+<p>那為什麼 <code>Phusion Passenger</code> 可以不需要 Apache/Nginx reverse proxy server？ 因為它在設計上具有獨特的特性：integrates directly into Apache or Nginx （Web server）所以你在架設的時候也相當簡易，可以參考 <a href="http://michaelhsu.tw/2013/06/26/nginx-passenger-rails-setup-on-ubuntu/" target="_blank" rel="external">Nginx + Passenger + Rails4 Setup on Ubuntu12.04</a>。</p>
+<h2 id="現實中的_Requests">現實中的 Requests</h2>
+<p>如果你只是需要做 Prototype demo 用，一般的開個 App server 當然沒問題，但是真的搬到台面上運作呢？當然不行，面對龐大的使用者你的 Server 必須要能夠應付得了。來看看實際上的 Web Request 是怎麼處理的。</p>
+<p><img src="http://media-cache-ec3.pinimg.com/originals/b6/e1/be/b6e1be1319facc07a91f9c5d9c1909df.jpg" alt="面對大量 requests"></p>
+<h1 id="OS_課程回顧：">OS 課程回顧：</h1>
+<ul>
+<li><code>Program</code>：程式碼（ OOP Class）。</li>
+<li><code>Process</code>：Program 所產生的執行個體（ OOP Object ）。因此一個 Program 可以同時執行多次產生多個 Process。每個proecess 包含：<ul>
+<li>一個 Memory Space（ OOP variable ），因此不同 Process 的 Memory Space 也不同,彼此看不到對方的 Memory Space。</li>
+<li>一個以上的Thread。Thread：CPU執行的最小單位。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Process_去取得_CPU_資源，很多_Process_去運用資源的方式有兩種">Process 去取得 CPU 資源，很多 Process 去運用資源的方式有兩種</h3>
+<ol>
+<li>multiprogramming 一次執行一個 Process，等到 I/O 再換下一個，剩餘的放在 memory。</li>
+<li>time sharing 來快速切換 process。</li>
+</ol>
+<p>釐清：multi-tasking 利用 CPU 多核來同使處理 tasks</p>
+<h3 id="取得_process_的方法就得使用_Process_scheduler：">取得 process 的方法就得使用 Process scheduler：</h3>
+<ol>
+<li>short-term scheduler（CPU scheduler ），來決定哪下一個被處理的 Process。</li>
+<li>long-term scheduler （Job scheduler ）來決定哪些 process 來放到 ready queue</li>
+</ol>
+<h3 id="至於_multi-thread_的使用_CPU_資源又是另一個_Thread_Scheduling_的事情了">至於 multi-thread 的使用 CPU 資源又是另一個 Thread Scheduling 的事情了</h3>
+<p><img src="http://media-cache-ak3.pinimg.com/originals/23/6b/81/236b8188125600d8d845ceb78594681a.jpg" alt="Thread Scheduling"></p>
+<p><img src="http://media-cache-ec2.pinimg.com/originals/8e/d2/a2/8ed2a27ed9dbed0f503eb2df6217dfc1.jpg" alt="multi-thread"></p>
+<p>我們可以將處理大量的 Requests （<code>I/O concurrency models</code>）方式分為四種：</p>
+<ol>
+<li>Single-threaded multi-process<ul>
+<li>最傳統的做法，因為早期 Ruby 的生態系對於 multithreading 支援度不高。</li>
+<li>因此需要 web server load balances between processes</li>
+<li>適合 for fast, short-running workloads</li>
+<li>不適合 for slow, long-running blocking I/O workload</li>
+<li>而且如果每個 Request 都沒有 I/O blocking，利用的 CPU 效率就是最好的。</li>
+<li><code>同時</code>連線線就等於能用的Process數量（例如最基本512 mb的主機上，通常可以開 3 個 Rails process，但是因為每個連線都控制在 20ms 以下，所以每秒鐘能處理的 requests 數量還是十分驚人，足以應用絕大部分的應用場景。</li>
+<li><code>Mongrel</code>、<code>Unicorn</code></li>
+</ul>
+</li>
+<li>Purely multi-threaded<ul>
+<li>因為現今 Ruby 生態系的發展，multithreading 支援度高，所以有些 App server 採取這個方式，</li>
+<li>Multithreading allows high I/O concurrency</li>
+<li>第一點提到的兩種情況都適合。</li>
+<li>因為採用 Global Interpreter Lock (GIL) 所以不能夠 leverage multiple CPU cores</li>
+<li>no builtin cluster support. 所以 You need to take special care to ensure that you can utilize multiple cores</li>
+<li><code>Puma</code></li>
+</ul>
+</li>
+<li>Hybrid multi-threaded multi-process<ul>
+<li>implemented by Phusion Passenger Enterprise 4 </li>
+<li>因為 hybrid 的設計，就算 Global Interpreter Lock (GIL) 也可以 fully utilize all CPU cores。</li>
+<li>任意切換組合： single-threaded multi-process, purely multithreaded, or perhaps even multiple processes each with multiple threads</li>
+<li>Puma, the hybrid mode is called “clustered”</li>
+</ul>
+</li>
+<li>Evented-driven<ul>
+<li>完全不同的設計概念，無論有多少連線，只有在有事件發生時，才會讓CPU做事。</li>
+<li>allows very high I/O concurrency</li>
+<li>excellent for long-running blocking I/O workloads</li>
+<li>但是 Framework 的設計概念必須一致，例如 Rails、Sinatra 這樣的 Framework 就不行。ex: 雖然 <code>Thin</code> 在設計上是這樣，但是搭配 rails 就仍舊只能 single-threaded multi-process</li>
+<li><code>thin</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="總結：">總結：</h3>
+<p>我們可以把網路真實的情況分為三個層級來做適當的處理：</p>
+<ul>
+<li>Situation 1：天真的想法，但是其實堪用。</li>
+</ul>
+<p>面對大量的 Client Request，<code>multi-proecess</code> （這邊講的是 single-thread）是最原始的做法，讓每一個 Request 都產生一個完整的 Rails app Process，而每個 Process 去取得 CPU core 得到運算資源來作處理，當然 Process 取得 CPU 資源應該在 OS 課程上學到，也許會透過一些排程來作 CPU 資源分配，但是切換 Process 需要 Context switch 是一種負擔。multi-proecess 這樣的做法好處是，除了撰寫容易外，面對只需要運算而不需要做 I/O blocking 的程式就能達到最好的 CPU 資源利用。</p>
+<ul>
+<li>Situation 2：中等的想法，但也是堪用。</li>
+</ul>
+<p>但是一旦碰到很多 I/O blocking ，能夠同時處理的 Request 就會受到限制，不過其實 <code>multi-proecess</code> 對於一般的服務，負載量是沒問題的。<br>但是當面對非常大量的或連續的 HTTP request，例如聊天室，每個使用者連線持續佔用 Process，或是 Process 需要的 Context switch 總成本量太高，就會出現等待問題了。這時候想到的解決方案是 <code>Multi-threaded</code>，因為利用 Thread 來取代 process 得以降低 context switching 負擔，因為 Thread 共用 Memory Space 的特性。這樣的解法是沒問題的，雖然程式設計撰寫上比較沒這麼容易，但是因為 Ruby 對於 Multi-threaded 的支援度越來越高，所以也算是一個很好地解決方案。</p>
+<ul>
+<li>Situation 3：天人的想法，好還要更好。</li>
+</ul>
+<p>現階段正在發展，最好的做法還是應該採用 Evented-driven 的 <code>Actor model</code>。就算是 Thread 很廉價，但是數量一多還是會成為 Server 負擔。Actor model 是個無窮的迴圈，無論有多少連線，只有在有事件發生時，才會讓CPU做事。<br>所以要如何達到 Evented-driven 呢？在 Rails 架構下，除了把 App server 改成有 evented 特性的 <code>thin</code> server 外，要把 rails 本身的 I/O 操作都改成 evented 版本，不然只要有一個部分被 blocking ，等於做了白功。事實上， Rails 這個 web framework 本來就並非 Evented-driven 的設計概念，所以最的方法是會選令其他 web frameworks ，例如 ruby 的 <code>Cramp</code>、<code>Goliath</code>（base on <code>EventMachine</code> ruby library)，或是其他語言的 Evented 框架如 <code>node.js</code>。</p>
+<h1 id="實作自己_Host_HTTP_server">實作自己 Host HTTP server</h1>
+<p>參考 <a href="http://michaelhsu.tw/2013/06/26/nginx-passenger-rails-setup-on-ubuntu/" target="_blank" rel="external">Nginx + Passenger + Rails4 Setup on Ubuntu12.04</a>，有簡易的步驟教學。</p>
+<h1 id="Reference">Reference</h1>
+<ul>
+<li><a href="http://stackoverflow.com/questions/4113299/ruby-on-rails-server-options/4113570#4113570" target="_blank" rel="external">Ruby on Rails Server options [closed]</a></li>
+<li><a href="https://github.com/FooBarWidget/passenger/wiki/Puma-vs-Phusion-Passenger?utm_source=rubyweekly&amp;utm_medium=email" target="_blank" rel="external">Puma vs Phusion Passenger</a></li>
+<li><a href="http://140.131.86.2/Ftp/240914500/q018/q018.htm" target="_blank" rel="external">Proxy server 簡介</a></li>
+<li><a href="http://www.arthurtoday.com/2010/01/reverse-proxy-server.html" target="_blank" rel="external">Reverse Proxy Server ( 反向代理伺服器 ) 是什麼 ?</a></li>
+<li><a href="http://neverealize.tumblr.com/post/32388841062/web-server-compare" target="_blank" rel="external">第一話 WEB SERVER COMPARE</a></li>
+<li><a href="http://wp.xdite.net/?p=1557" target="_blank" rel="external">Rack 與 Rack middleware</a></li>
+<li><a href="http://rack.github.io/" target="_blank" rel="external">Rack: a Ruby Webserver Interface</a></li>
+<li><a href="http://ihower.tw/rails3/deployment.html" target="_blank" rel="external">Ruby on Rails 實戰聖經 佈署</a></li>
+<li><a href="http://210-70-179-219.cjcu.edu.tw/CourseOS/homework/Ch4_Homework_Ans.htm" target="_blank" rel="external">Chapter 4 Homework- Threads 參考答案 </a></li>
+<li><a href="http://programming.im.ncnu.edu.tw/J_Chapter9.htm" target="_blank" rel="external">Program,Process,Thread</a></li>
+<li><a href="http://www.csie.ntnu.edu.tw/~swanky/os/chap4.htm" target="_blank" rel="external">Context Switching(內文切換)</a></li>
+<li><a href="http://answers.yahoo.com/question/index?qid=20101031182605AAczoHe" target="_blank" rel="external">What is the difference between time-sharing and multitasking?</a></li>
+</ul>
+
+        
+          <!-- Go to your Addthis.com Dashboard to update any options -->
+          <div class="addthis_native_toolbox" style="z-index: 1"></div>
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/07/04/server/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/07/04/server/" data-id="os4qx6rtdtl22jw8" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/07/04/server/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/07/04/server/" data-id="os4qx6rtdtl22jw8" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/07/04/server/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rails/">rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/12/21/use-linux-screen/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          為什麼你該使用 Linux Screen
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/07/03/ror/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何愛上開發 Ruby2 on Rails4</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/f2e/">F2E</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">PostgreSQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r/">R</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spa/">SPA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular-js/">angular.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp-js/">gulp.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/page/">page</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rails/">rails</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Michael Hsu<br>
+      <!-- Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> -->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://about.michaelhsu.tw/" class="mobile-nav-link">About</a>
+  
+    <a href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw" class="mobile-nav-link">Subscription</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'michaelhsutwblog';
+  
+  var disqus_url = 'http://michaelhsu.tw/2013/07/04/server/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

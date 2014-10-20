@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>R and Hadoop 整合初體驗 | Michael Hsu.tw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="當 R 尬上 Hadoop，到底會激盪出什麼樣的火花呢？下面實際跑過書上的範例來為您介紹，三種不一樣的整合方式任君挑選。
+
+目錄
+
+Hadoop &amp; R
+R and Streaming
+Rhipe
+RHadoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R and Hadoop 整合初體驗">
+<meta property="og:url" content="http://michaelhsu.tw/2013/05/01/r-and-hadoop-初體驗/">
+<meta property="og:site_name" content="Michael Hsu.tw">
+<meta property="og:description" content="當 R 尬上 Hadoop，到底會激盪出什麼樣的火花呢？下面實際跑過書上的範例來為您介紹，三種不一樣的整合方式任君挑選。
+
+目錄
+
+Hadoop &amp; R
+R and Streaming
+Rhipe
+RHadoop">
+<meta property="og:image" content="http://i.imgur.com/IVgmGSJ.jpg">
+<meta property="og:image" content="http://i.imgur.com/zJWwuXF.png">
+<meta property="og:image" content="http://i.imgur.com/IUo5fqg.png">
+<meta property="og:image" content="http://i.imgur.com/mJ66DfS.png">
+<meta property="og:image" content="http://i.imgur.com/JN1SV1c.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R and Hadoop 整合初體驗">
+<meta name="twitter:description" content="當 R 尬上 Hadoop，到底會激盪出什麼樣的火花呢？下面實際跑過書上的範例來為您介紹，三種不一樣的整合方式任君挑選。
+
+目錄
+
+Hadoop &amp; R
+R and Streaming
+Rhipe
+RHadoop">
+<meta name="twitter:creator" content="@evenchange4">
+
+  
+    <link rel="alternative" href="http://feeds.feedburner.com/michael-hsu-tw" title="Michael Hsu.tw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33845990-9']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <!-- <header id="header"> -->
+  <!-- <div id="banner"></div> -->
+  <!-- <div id="header-outer" class="outer"> -->
+<!--     <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Michael Hsu.tw</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+        </h2>
+      
+    </div> -->
+
+
+
+  <!-- </div> -->
+<!-- </header> -->
+
+<header class="site-head" >
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://about.michaelhsu.tw/">About</a>
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw">Subscription</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="http://feeds.feedburner.com/michael-hsu-tw" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap" style="z-index:1">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://michaelhsu.tw"></form>
+      </div>
+    </div>
+    
+  <div class="vertical">
+    <div class="site-head-content inner">
+      <div id="header-title" class="inner">
+         
+          <a class="blog-logo" href="/">
+            <img src="http://www.gravatar.com/avatar/66799cbbe4d891ad4eca39b95119fe18?s=100" alt="Blog Logo"/>
+          </a> 
+        
+        <h1 id="logo-wrap">
+          <a href="/" id="logo">Michael Hsu.tw</a>
+        </h1>
+        
+          <h2 id="subtitle-wrap">
+            <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+          </h2>
+        
+      </div> 
+    </div>
+  </div> <!-- end vertical -->
+</header>
+      <div class="outer">
+        <section id="main"><!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-r-and-hadoop-初體驗" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      R and Hadoop 整合初體驗
+    </h1>
+  
+
+        <a href="/2013/05/01/r-and-hadoop-初體驗/" class="article-date">
+  <time datetime="2013-05-01T15:08:17.000Z" itemprop="datePublished">May 01, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <div id="toc" class="toc-article">
+            <strong class="toc-title">Outline</strong>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目錄"><span class="toc-number">1.</span> <span class="toc-text">目錄</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安裝_R"><span class="toc-number">2.</span> <span class="toc-text">安裝 R</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安裝_Hadoop"><span class="toc-number">3.</span> <span class="toc-text">安裝 Hadoop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#範例資料來源"><span class="toc-number">4.</span> <span class="toc-text">範例資料來源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整合一：R_and_Streaming"><span class="toc-number">5.</span> <span class="toc-text">整合一：R and Streaming</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、map-only_job，_problem:_計算_stocks_每日的平均"><span class="toc-number">6.</span> <span class="toc-text">一、map-only job， problem: 計算 stocks 每日的平均</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Full_MapReduce_job，_problem:_計算_stocks_累積移動平均（CMA）"><span class="toc-number">7.</span> <span class="toc-text">二、Full MapReduce job， problem: 計算 stocks 累積移動平均（CMA）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整合二：Rhipe"><span class="toc-number">8.</span> <span class="toc-text">整合二：Rhipe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、安裝_Rhipe"><span class="toc-number">9.</span> <span class="toc-text">一、安裝 Rhipe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、同_problem_2_計算_stocks_累積移動平均（CMA）"><span class="toc-number">10.</span> <span class="toc-text">二、同 problem 2 計算 stocks 累積移動平均（CMA）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、問題討論"><span class="toc-number">11.</span> <span class="toc-text">三、問題討論</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整合三：RHadoop"><span class="toc-number">12.</span> <span class="toc-text">整合三：RHadoop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、安裝"><span class="toc-number">13.</span> <span class="toc-text">一、安裝</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、同_problem_2_再來計算一次_stocks_累積移動平均（CMA）"><span class="toc-number">14.</span> <span class="toc-text">二、同 problem 2 再來計算一次 stocks 累積移動平均（CMA）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#問題討論"><span class="toc-number">15.</span> <span class="toc-text">問題討論</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">16.</span> <span class="toc-text">Reference</span></a></li></ol>
+            </div>
+        
+
+        <blockquote>
+<p><img src="http://i.imgur.com/IVgmGSJ.jpg" alt="R &amp; Hadoop"><br>當 R 尬上 Hadoop，到底會激盪出什麼樣的火花呢？下面實際跑過書上的範例來為您介紹，三種不一樣的整合方式任君挑選。</p>
+</blockquote>
+<h2 id="目錄">目錄</h2>
+<ol>
+<li>Hadoop &amp; R</li>
+<li>R and Streaming</li>
+<li>Rhipe</li>
+<li>RHadoop</li>
+</ol>
+<a id="more"></a>
+
+<h2 id="安裝_R">安裝 R</h2>
+<p>想知道它是 Fedora, Debian, 還是Ubuntu 等等的 Linux distribution version：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cat /<span class="keyword">proc</span>/version</div><div class="line"><span class="comment"># =&gt;</span></div><div class="line"><span class="type">Linux</span> version <span class="number">2</span>.<span class="number">6</span>.<span class="number">32</span>-<span class="number">358</span>.<span class="number">0</span>.<span class="number">1</span>.el6.x86_64 (mockbuild@c6b10.bsys.dev.centos.org) (gcc version <span class="number">4</span>.<span class="number">4</span>.<span class="number">7</span> <span class="number">20120313</span> (<span class="type">Red</span> <span class="type">Hat</span> <span class="number">4</span>.<span class="number">4</span>.<span class="number">7</span>-<span class="number">3</span>) (<span class="type">GCC</span>) ) <span class="comment">#1 SMP Wed Feb 27 06:06:45 UTC 2013</span></div></pre></td></tr></table></figure>
+
+<p>所以選擇安裝 Red Hat el6 =&gt; <a href="http://cran.rstudio.com/" target="_blank" rel="external">官網</a>竟然沒有，只好自己谷歌<br>安裝 <a href="http://pkgs.org/centos-6-rhel-6/epel-x86_64/R-2.15.2-1.el6.x86_64.rpm/download/" target="_blank" rel="external">R-2.15.2-1.el6.x86_64.rpm</a>。</p>
+<h2 id="安裝_Hadoop">安裝 Hadoop</h2>
+<p>參考 <a href="http://michaelhsu.tw/2013/04/21/hadoop-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AE%89%E8%A3%9D%E5%B0%B1%E4%B8%8A%E6%89%8B-cdh3/" target="_blank" rel="external">Hadoop 第一次安裝就上手 CDH3</a>。</p>
+<h2 id="範例資料來源">範例資料來源</h2>
+<p>下載 hadoop book example: <a href="https://github.com/alexholmes/hadoop-book" target="_blank" rel="external">https://github.com/alexholmes/hadoop-book</a>：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>git clone git<span class="variable">@github</span>.<span class="symbol">com:</span>alexholmes/hadoop-book.git</div></pre></td></tr></table></figure>
+
+<blockquote>
+<h2 id="整合一：R_and_Streaming">整合一：R and Streaming</h2>
+<p><em>可以使用任何程式語言來實作 map/reduce，只要規定好標準的input/output。<br>好處：在本機端就可以很簡單的做測試，不需要真正去涉及 MapReduce 就能 test，並且透過 cmd 來執行 hadoop job。<br>這邊透過兩個例子（map-only、Full MapReduce）來演示。</em></p>
+</blockquote>
+<h2 id="一、map-only_job，_problem:_計算_stocks_每日的平均">一、map-only job， problem: 計算 stocks 每日的平均</h2>
+<ul>
+<li>不 care join or group data in reducer。 </li>
+<li>其中 input csv file 的 element 為 <code>Symbol,Date,Open,High,Low,Close,Volume,Adj Close</code></li>
+<li>日平均算法：開盤(open)跟收盤(close)的平均。</li>
+</ul>
+<p>step1: 首先先在本機端（Mac）上跑看看：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># cat ｜ 表示 把前一次運行的結果往後面丟。</span></div><div class="line">$ cat test-data/stocks.txt | src/main/R/ch8/stock_day_avg.R</div><div class="line"><span class="comment"># =&gt; </span></div><div class="line">AAPL	<span class="number">2009</span>-<span class="number">01</span>-<span class="number">02</span>	<span class="number">88.315</span></div><div class="line">AAPL	<span class="number">2008</span>-<span class="number">01</span>-<span class="number">02</span>	<span class="number">197.055</span></div><div class="line">AAPL	<span class="number">2007</span>-<span class="number">01</span>-<span class="number">03</span>	<span class="number">85.045</span></div><div class="line"><span class="keyword">...</span></div></pre></td></tr></table></figure>
+
+<p>step2: 接著丟上 hadoop 來看看：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 首先，先新增一個環境變數，設定hadoop 的路徑</span></div><div class="line"><span class="variable">$ </span>export <span class="constant">HADOOP_HOME</span>=<span class="regexp">/usr/java</span><span class="regexp">/hadoop-1.0.4/</span></div><div class="line"></div><div class="line"><span class="comment"># 移除 output file 內的資料</span></div><div class="line"><span class="variable">$ </span><span class="variable">${</span><span class="constant">HADOOP_HOME</span>}/bin/hadoop fs -rmr output</div><div class="line"></div><div class="line"><span class="comment"># 複製到 hadoop file system</span></div><div class="line"><span class="variable">$ </span><span class="variable">${</span><span class="constant">HADOOP_HOME</span>}/bin/hadoop fs -put test-data/stocks.txt \stocks.txt</div><div class="line"><span class="comment"># check </span></div><div class="line"><span class="variable">$ </span><span class="variable">${</span><span class="constant">HADOOP_HOME</span>}/bin/hadoop fs -ls</div><div class="line"></div><div class="line"><span class="comment"># run hadoop mamp/reduce， -file: copy 到 distributed cache</span></div><div class="line"><span class="variable">$ </span><span class="variable">${</span><span class="constant">HADOOP_HOME</span>}/bin/hadoop \</div><div class="line">  jar <span class="variable">${</span><span class="constant">HADOOP_HOME</span>}/contrib/streaming/*.jar \</div><div class="line">  -<span class="constant">D</span> mapreduce.job.reduces=<span class="number">0</span> \</div><div class="line">  -inputformat org.apache.hadoop.mapred.<span class="constant">TextInputFormat</span> \</div><div class="line">  -input stocks.txt \</div><div class="line">  -output output \</div><div class="line">  -mapper `路徑要設`/src/main/<span class="constant">R</span>/ch8/stock_day_avg.<span class="constant">R</span> \</div><div class="line">  -file `路徑要設`/src/main/<span class="constant">R</span>/ch8/stock_day_avg.<span class="constant">R</span></div><div class="line"><span class="comment"># 我的路徑範例</span></div><div class="line"><span class="variable">$ </span>/usr/java/hadoop-<span class="number">1.0</span>.<span class="number">4</span>/bin/hadoop   jar /usr/java/hadoop-<span class="number">1.0</span>.<span class="number">4</span>/contrib/streaming/hadoop-streaming-<span class="number">1.0</span>.<span class="number">4</span>.jar   -<span class="constant">D</span> mapreduce.job.reduces=<span class="number">0</span>   -inputformat org.apache.hadoop.mapred.<span class="constant">TextInputFormat</span>   -input stocks.txt   -output output   -mapper src/main/<span class="constant">R</span>/ch8/stock_day_avg.<span class="constant">R</span>   -file src/main/<span class="constant">R</span>/ch8/stock_day_avg.<span class="constant">R</span></div><div class="line"></div><div class="line"><span class="comment"># check ouput 從網頁看，或是 fs</span></div><div class="line"><span class="variable">$ </span><span class="variable">${</span><span class="constant">HADOOP_HOME</span>}/bin/hadoop fs -cat output/part*</div><div class="line"><span class="comment"># =&gt;</span></div><div class="line"><span class="constant">AAPL</span>	<span class="number">2008</span>-<span class="number">01</span>-<span class="number">02</span>	<span class="number">197.055</span>	</div><div class="line"><span class="constant">AAPL</span>	<span class="number">2009</span>-<span class="number">01</span>-<span class="number">02</span>	<span class="number">88.315</span>	</div><div class="line"><span class="constant">AAPL</span>	<span class="number">2007</span>-<span class="number">01</span>-<span class="number">03</span>	<span class="number">85.045</span>	</div><div class="line"><span class="constant">AAPL</span>	<span class="number">2006</span>-<span class="number">01</span>-<span class="number">03</span>	<span class="number">73.565</span>	</div><div class="line"><span class="constant">AAPL</span>	<span class="number">2005</span>-<span class="number">01</span>-<span class="number">03</span>	<span class="number">64.035</span>	</div><div class="line">...</div></pre></td></tr></table></figure>
+
+<p><em>結果與本機端相同。</em></p>
+<p>step3: 來看看 R 的 code on <a href="https://github.com/alexholmes/hadoop-book/blob/master/src/main/R/ch8/stock_day_avg.R" target="_blank" rel="external">github</a> ：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># R process name</span></div><div class="line"><span class="comment">#! /usr/bin/env Rscript </span></div><div class="line"></div><div class="line"><span class="comment"># 關掉 warnings</span></div><div class="line">options(warn=-<span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="comment"># 切換 output 到 path</span></div><div class="line">sink(<span class="string">"/dev/null"</span>)</div><div class="line"></div><div class="line"><span class="comment"># standard input.</span></div><div class="line">input &lt;- file(<span class="string">"stdin"</span>, <span class="string">"r"</span>)</div><div class="line"></div><div class="line"><span class="comment"># read n line，false 結尾為 empty，不需要是EOF</span></div><div class="line"><span class="keyword">while</span>(length(currentLine &lt;- readLines(input, n=<span class="number">1</span>, warn=<span class="literal">FALSE</span>)) &gt; <span class="number">0</span>) {</div><div class="line">   <span class="comment"># split 後，unlist 把 list 轉換成 vector</span></div><div class="line">   fields &lt;- unlist(strsplit(currentLine, <span class="string">","</span>))</div><div class="line"></div><div class="line">   lowHigh &lt;- c(as.double(fields[<span class="number">3</span>]), as.double(fields[<span class="number">6</span>]))</div><div class="line">   stock_mean &lt;- mean(lowHigh)</div><div class="line"></div><div class="line">   <span class="comment"># 切換回來 output 到 terminal</span></div><div class="line">   sink()</div><div class="line"></div><div class="line">   <span class="comment"># concatenate 和 ouput</span></div><div class="line">   cat(fields[<span class="number">1</span>], fields[<span class="number">2</span>], stock_mean, <span class="string">"\n"</span>, sep=<span class="string">"\t"</span>)</div><div class="line">   </div><div class="line">   <span class="comment"># 切換回去</span></div><div class="line">   sink(<span class="string">"/dev/null"</span>)</div><div class="line">}</div><div class="line">close(input)</div></pre></td></tr></table></figure>
+
+<h2 id="二、Full_MapReduce_job，_problem:_計算_stocks_累積移動平均（CMA）">二、Full MapReduce job， problem: 計算 stocks <a href="http://zh.wikipedia.org/wiki/%E7%A7%BB%E5%8B%95%E5%B9%B3%E5%9D%87" target="_blank" rel="external">累積移動平均（CMA）</a></h2>
+<ul>
+<li>CMA 算法為：同樣的公司不同日期的平均。</li>
+</ul>
+<p>step1: 同樣地先在本機端（Mac）上跑看看：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># <span class="keyword">cat</span> ｜ 表示 把前一次運行的結果往後面丟。</div><div class="line"># <span class="built_in">map</span> | <span class="keyword">runtime</span> <span class="built_in">sort</span>（用 linux cmd 指令模仿的） | reduce</div><div class="line">$ <span class="keyword">cat</span> test-data/stocks.txt | src/main/R/ch8/stock_day_avg.R | <span class="built_in">sort</span> --key <span class="number">1</span>,<span class="number">1</span> | src/main/R/ch8/stock_cma.R</div><div class="line"># =&gt; </div><div class="line">AAPL  <span class="number">68.997</span></div><div class="line">CSCO  <span class="number">30.8985</span></div><div class="line">GOOG  <span class="number">419.943</span></div><div class="line">MSFT  <span class="number">44.6725</span></div><div class="line">YHOO  <span class="number">70.971</span></div></pre></td></tr></table></figure>
+
+<p>step2: 接著丟上 hadoop 來看看：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">$ export HADOOP_HOME=/usr/java/hadoop-1.0.4/</div><div class="line">$ ${HADOOP_HOME}/bin/hadoop fs -rmr output</div><div class="line">$ ${HADOOP_HOME}/bin/hadoop fs -put test-data/stocks.txt \stocks.txt</div><div class="line">$ ${HADOOP_HOME}/bin/hadoop \</div><div class="line">  jar ${HADOOP_HOME}/contrib/streaming/*.jar \</div><div class="line">  -<span class="ruby">inputformat org.apache.hadoop.mapred.<span class="constant">TextInputFormat</span> \</span></div><div class="line">  -<span class="ruby">input stocks.txt \</span></div><div class="line">  -<span class="ruby">output output \</span></div><div class="line">  -<span class="ruby">mapper src/main/<span class="constant">R</span>/ch8/stock_day_avg.<span class="constant">R</span> \</span></div><div class="line">  -<span class="ruby">reducer src/main/<span class="constant">R</span>/ch8/stock_cma.<span class="constant">R</span> \</span></div><div class="line">  -<span class="ruby">file src/main/<span class="constant">R</span>/ch8/stock_day_avg.<span class="constant">R</span> \</span></div><div class="line">  -<span class="ruby">file src/main/<span class="constant">R</span>/ch8/stock_cma.<span class="constant">R</span></span></div><div class="line">$ ${HADOOP_HOME}/bin/hadoop fs -cat output/part*</div><div class="line"># =&gt;</div><div class="line">AAPL  68.997  </div><div class="line">CSCO  49.94775  </div><div class="line">GOOG  123.9468  </div><div class="line">MSFT  101.297 </div><div class="line">YHOO  94.55789</div></pre></td></tr></table></figure>
+
+<p><img src="http://i.imgur.com/zJWwuXF.png" alt="最後結果截圖"><br><strong> 但其實，答案跟預期不同，似乎算錯了！</strong></p>
+<p>step3: mapper 的 code 同 problem 1 的 mapper，所以我們來看看 R <code>reducer</code> 的 code on <a href="https://github.com/alexholmes/hadoop-book/blob/master/src/main/R/ch8/stock_cma.R" target="_blank" rel="external">github</a>：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! /usr/bin/env Rscript</span></div><div class="line">options(warn=-<span class="number">1</span>)</div><div class="line">sink(<span class="string">"/dev/null"</span>)</div><div class="line"></div><div class="line"><span class="comment"># R 定義 function，input means：vector</span></div><div class="line">outputMean &lt;- <span class="keyword">function</span>(stock, means) {</div><div class="line">  stock_mean &lt;- mean(means)</div><div class="line">  sink()</div><div class="line">  cat(stock, stock_mean, <span class="string">"\n"</span>, sep=<span class="string">"\t"</span>)</div><div class="line">  sink(<span class="string">"/dev/null"</span>)</div><div class="line">}</div><div class="line"></div><div class="line">input &lt;- file(<span class="string">"stdin"</span>, <span class="string">"r"</span>)</div><div class="line"></div><div class="line">prevKey &lt;- <span class="string">""</span></div><div class="line">means &lt;- numeric(<span class="number">0</span>)</div><div class="line"></div><div class="line"><span class="keyword">while</span>(length(currentLine &lt;- readLines(input, n=<span class="number">1</span>, warn=<span class="literal">FALSE</span>)) &gt; <span class="number">0</span>) {</div><div class="line"></div><div class="line">  fields &lt;- unlist(strsplit(currentLine, <span class="string">"\t"</span>))</div><div class="line"></div><div class="line">  key &lt;- fields[<span class="number">1</span>]</div><div class="line">  mean &lt;- as.double(fields[<span class="number">3</span>])</div><div class="line"></div><div class="line">  <span class="keyword">if</span>( identical(prevKey, <span class="string">""</span>) || identical(prevKey, key)) {</div><div class="line">    prevKey &lt;- key</div><div class="line">    means &lt;- c(means, mean)</div><div class="line">  } <span class="keyword">else</span> {</div><div class="line">    outputMean(prevKey, means)</div><div class="line">    prevKey &lt;- key</div><div class="line">    </div><div class="line">    <span class="comment"># 這邊 sample code 寫錯，發現新的 key 應該要用新的 </span></div><div class="line">    means &lt;- numeric(<span class="number">0</span>) vector</div><div class="line"></div><div class="line">    means &lt;- c(means, mean)</div><div class="line">  }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">if</span>(!identical(prevKey, <span class="string">""</span>)) {</div><div class="line">  outputMean(prevKey, means)</div><div class="line">}</div><div class="line"></div><div class="line">close(input)</div></pre></td></tr></table></figure>
+
+<p><strong> 注意 line 33，更改後才會得到正確的答案。 </strong></p>
+<p><img src="http://i.imgur.com/IUo5fqg.png" alt="正確的答案"></p>
+<blockquote>
+<h2 id="整合二：Rhipe">整合二：Rhipe</h2>
+<p>Client-side R and Hadoop working together。<br>「R and Hadoop Integrated Processing Envirnment」的縮寫，在 R 裡面運行 Hadoop job。</p>
+</blockquote>
+<h2 id="一、安裝_Rhipe">一、安裝 <a href="http://saptarshiguha.github.io/RHIPE/installation.html" target="_blank" rel="external">Rhipe</a></h2>
+<p>先安裝 <a href="https://code.google.com/p/protobuf/" target="_blank" rel="external">Protocol Buffers</a>，下載<code>protobuf-2.4.1.tar.gz</code>，一定要這個版本，記得看 readme 安裝方法。</p>
+<blockquote>
+<p>Protocol Buffers are a way of encoding structured data in an efficient yet extensible format. Google uses Protocol Buffers for almost all of its internal RPC protocols and file formats.<br>think XML, but smaller, faster, and simpler.</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>cd protobuf-<span class="number">2.4</span>.<span class="number">1</span></div><div class="line"><span class="variable">$ </span>./configure</div><div class="line"><span class="variable">$ </span>make</div><div class="line"><span class="variable">$ </span>make check</div><div class="line"><span class="variable">$ </span>make install</div></pre></td></tr></table></figure>
+
+<p>挑一個最多人下載的版本 <a href="https://github.com/saptarshiguha/RHIPE/downloads" target="_blank" rel="external">Rhipe_0.69.tar.gz</a>。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>export <span class="constant">PKG_CONFIG_PATH=</span>/usr/local/lib/pkgconfig</div><div class="line"><span class="variable">$ </span>export <span class="constant">HADOOP=</span>/usr/java/hadoop-<span class="number">1.0</span>.<span class="number">4</span></div><div class="line"><span class="variable">$ </span>export <span class="constant">HADOOP_LIB=</span><span class="variable">$HADOOP</span>/lib</div><div class="line"><span class="variable">$ </span>export <span class="constant">HADOOP_CONF_DIR=</span><span class="variable">$HADOOP</span>/conf</div><div class="line"><span class="variable">$ </span>/sbin/ldconfig</div><div class="line"><span class="variable">$ </span><span class="constant">R CMD INSTALL </span>/root/<span class="constant">Downloads/Rhipe_0.</span><span class="number">69</span>.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># check install</span></div><div class="line"><span class="variable">$ </span><span class="constant">R</span></div><div class="line">&gt; library(<span class="constant">Rhipe)</span></div></pre></td></tr></table></figure>
+
+<h2 id="二、同_problem_2_計算_stocks_累積移動平均（CMA）">二、同 problem 2 計算 stocks 累積移動平均（CMA）</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>export <span class="constant">HADOOP_HOME</span>=<span class="regexp">/usr/java</span><span class="regexp">/hadoop-1.0.4/</span></div><div class="line"><span class="variable">$ </span><span class="variable">${</span><span class="constant">HADOOP_HOME</span>}/bin/hadoop fs -rmr output</div><div class="line"><span class="variable">$ </span><span class="variable">${</span><span class="constant">HADOOP_HOME</span>}/bin/hadoop fs -put test-data/stocks.txt /tmp/stocks.txt</div><div class="line"><span class="variable">$ </span>export <span class="constant">HADOOP_BIN</span>=<span class="regexp">/usr/java</span><span class="regexp">/hadoop-1.0.4/bin</span></div><div class="line"><span class="variable">$ </span>hadoop-book-master/src/main/<span class="constant">R</span>/ch8/stock_cma_rhipe.<span class="constant">R</span></div></pre></td></tr></table></figure>
+
+<p><img src="http://i.imgur.com/mJ66DfS.png" alt="結果截圖"></p>
+<p><del>接著看一下 整合 rhipe 的 R code on <a href="https://github.com/alexholmes/hadoop-book/blob/master/src/main/R/ch8/stock_cma_rhipe.R" target="_blank" rel="external">github</a></del></p>
+<h2 id="三、問題討論">三、問題討論</h2>
+<ol>
+<li>亂碼？</li>
+<li><del>結果數據與第一個整合不一樣</del>：已解決，問題出在整合一的 sample code 算錯。</li>
+</ol>
+<blockquote>
+<h2 id="整合三：RHadoop">整合三：RHadoop</h2>
+<p>相較簡單的整合 Client-side R and Hadoop，同Rhipe可在 R 裡面運行 Hadoop job。</p>
+</blockquote>
+<p>RHadoop其中包含了三個元件</p>
+<ol>
+<li>rmr (整合 R、Hadoop) ，範例只專注在 rmr 上。</li>
+<li>rdfs（R 的 HDFS 界面）</li>
+<li>rhbase（R 的 Hbase 界面）</li>
+</ol>
+<h2 id="一、安裝">一、安裝</h2>
+<p>前置套件安裝</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ R</div><div class="line">&gt; install.packages(<span class="string">"RJSONIO"</span>)</div><div class="line">&gt; install.packages(<span class="string">"itertools"</span>) </div><div class="line">&gt; install.packages(<span class="string">"digest"</span>)</div><div class="line">&gt; q()</div><div class="line"></div><div class="line">$ R CMD javareconf</div><div class="line">$ R</div><div class="line">&gt; install.packages(<span class="string">"rJava"</span>)</div><div class="line">&gt; install.packages(<span class="string">"Rcpp"</span>)</div><div class="line">&gt; install.packages(<span class="string">"functional"</span>)</div><div class="line">&gt; install.packages(<span class="string">"stringr"</span>)</div><div class="line">&gt; install.packages(<span class="string">"reshape2"</span>)</div></pre></td></tr></table></figure>
+
+<p>安裝 rmr2，下載 <a href="https://github.com/RevolutionAnalytics/RHadoop/wiki/Downloads" target="_blank" rel="external">rmr2-2.2.0</a>，中途可能會需要你安裝 R 套件。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span><span class="constant">R</span> <span class="constant">CMD</span> <span class="constant">INSTALL</span> rmr2_2.<span class="number">2.0</span>.tar.gz</div></pre></td></tr></table></figure>
+
+<h2 id="二、同_problem_2_再來計算一次_stocks_累積移動平均（CMA）">二、同 problem 2 再來計算一次 stocks 累積移動平均（CMA）</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>export <span class="constant">HADOOP_HOME</span>=<span class="regexp">/usr/java</span><span class="regexp">/hadoop-1.0.4/</span></div><div class="line"><span class="variable">$ </span><span class="variable">${</span><span class="constant">HADOOP_HOME</span>}/bin/hadoop fs -rmr output</div><div class="line"><span class="variable">$ </span><span class="variable">$HADOOP_HOME</span>/bin/hadoop fs -put test-data/stocks.txt stocks.txt</div><div class="line"><span class="variable">$ </span>hadoop-book-master/src/main/<span class="constant">R</span>/ch8/stock_cma_rmr.<span class="constant">R</span></div></pre></td></tr></table></figure>
+
+<p>遇到 argument ERROR：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Error <span class="keyword">in</span> mapreduce(<span class="variable">input =</span> <span class="string">"stocks.txt"</span>, <span class="variable">output =</span> <span class="string">"output"</span>, <span class="variable">textinputformat =</span> rawtextinputformat,  : </div><div class="line">  unused argument(s) (<span class="variable">textinputformat =</span> rawtextinputformat, <span class="variable">textoutputformat =</span> kvtextoutputformat)</div><div class="line">Execution halted</div></pre></td></tr></table></figure>
+
+<p>因為<a href="https://github.com/RevolutionAnalytics/rmr2/blob/master/docs/getting-data-in-and-out.md" target="_blank" rel="external">新版 rmr2</a> format參數 改了，請改成 <code>vi src/main/R/ch8/stock_cma_rmr.R</code> on <a href="https://github.com/alexholmes/hadoop-book/blob/master/src/main/R/ch8/stock_cma_rmr.R" target="_blank" rel="external">github</a>:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! /usr/bin/env Rscript</span></div><div class="line"><span class="keyword">library</span>(rmr2)</div><div class="line"><span class="keyword">...</span></div><div class="line">mapreduce(</div><div class="line">  input = <span class="string">"stocks.txt"</span>,</div><div class="line">  output = <span class="string">"output"</span>,</div><div class="line">  input.format = <span class="string">"text"</span>,</div><div class="line">  output.format = <span class="string">"text"</span>,</div><div class="line">  map = map,</div><div class="line">  reduce = reduce</div><div class="line">)</div></pre></td></tr></table></figure>
+
+<p>最後，</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># check output</span></div><div class="line"><span class="variable">$ </span><span class="variable">${</span><span class="constant">HADOOP_HOME</span>}/bin/hadoop fs -cat output/part*</div><div class="line"><span class="comment"># =&gt; </span></div><div class="line"><span class="constant">AAPL</span>	<span class="number">88.315</span></div><div class="line"><span class="constant">GOOG</span>	<span class="number">428.875</span></div></pre></td></tr></table></figure>
+
+<p><img src="http://i.imgur.com/JN1SV1c.png" alt="有問題的結果截圖"></p>
+<p>發現是 map 的 input 格式出錯，更改 sample code：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">#! /usr/bin/env Rscript</div><div class="line">library(rmr2)</div><div class="line"></div><div class="line"><span class="built_in">map</span> &lt;- <span class="function"><span class="keyword">function</span><span class="params">(k,v)</span> {</span></div><div class="line">  fields &lt;- unlist(strsplit(<span class="keyword">v</span>, <span class="string">","</span>))</div><div class="line">  keyval(fields[<span class="number">1</span>], mean(<span class="keyword">as</span>.double(<span class="keyword">c</span>(fields[<span class="number">3</span>], fields[<span class="number">6</span>]))))</div><div class="line">}</div><div class="line"></div><div class="line">reduce &lt;- <span class="function"><span class="keyword">function</span><span class="params">(k,vv)</span> {</span></div><div class="line">  keyval(<span class="keyword">k</span>, mean(<span class="keyword">as</span>.numeric(unlist(vv))))</div><div class="line">}</div><div class="line"></div><div class="line">mapreduce(</div><div class="line">  <span class="built_in">input</span> = <span class="string">"stocks.txt"</span>,</div><div class="line">  output = <span class="string">"output"</span>,</div><div class="line">  <span class="built_in">input</span>.format = <span class="string">"text"</span>,</div><div class="line">  output.format = <span class="string">"text"</span>,</div><div class="line">  <span class="built_in">map</span> = <span class="built_in">map</span>,</div><div class="line">  reduce = reduce</div><div class="line">)</div></pre></td></tr></table></figure>
+
+<h2 id="問題討論">問題討論</h2>
+<ol>
+<li>為什麼只有兩筆資料？ 是 input format 錯誤??</li>
+</ol>
+<h2 id="Reference">Reference</h2>
+<ul>
+<li><a href="http://www.manning.com/holmes/" target="_blank" rel="external">Hadoop.in.Practice.Oct.2012.pdf</a> ch8</li>
+<li>R <a href="http://rfunction.com/archives/2238" target="_blank" rel="external">unlist</a></li>
+<li>R <a href="http://www.statmethods.net/interface/io.html" target="_blank" rel="external">Input/Output</a> </li>
+<li>R <a href="http://stat.ethz.ch/R-manual/R-devel/library/base/html/cat.html" target="_blank" rel="external">cat</a></li>
+<li>Nick Hsu <a href="https://docs.google.com/document/d/14StHO_kcYGstR6YQU8QujTi1-pSeWx1CjCIxT7n7aW4/edit" target="_blank" rel="external">101-2 Progress Report</a></li>
+<li>rhadoop3-rhadoop-mapreduce <a href="http://cos.name/2013/04/rhadoop3-rhadoop-mapreduce/" target="_blank" rel="external">blog</a></li>
+</ul>
+
+        
+          <!-- Go to your Addthis.com Dashboard to update any options -->
+          <div class="addthis_native_toolbox" style="z-index: 1"></div>
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/05/01/r-and-hadoop-初體驗/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/05/01/r-and-hadoop-初體驗/" data-id="r6z421n95c4tilmc" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/05/01/r-and-hadoop-初體驗/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/r/">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/05/01/r-and-hadoop-初體驗/" data-id="r6z421n95c4tilmc" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/05/01/r-and-hadoop-初體驗/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/r/">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/05/05/rssatom-sitemap-for-seo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          RSS/Atom、Sitemap for SEO
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/04/25/real-time-web/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Real Time Web</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/f2e/">F2E</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">PostgreSQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r/">R</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spa/">SPA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular-js/">angular.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp-js/">gulp.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/page/">page</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rails/">rails</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Michael Hsu<br>
+      <!-- Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> -->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://about.michaelhsu.tw/" class="mobile-nav-link">About</a>
+  
+    <a href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw" class="mobile-nav-link">Subscription</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'michaelhsutwblog';
+  
+  var disqus_url = 'http://michaelhsu.tw/2013/05/01/r-and-hadoop-初體驗/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

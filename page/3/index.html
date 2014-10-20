@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Michael Hsu.tw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一個喜歡網頁開發（Web developer）以及網路資料探勘（Mining）的部落客。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Michael Hsu.tw">
+<meta property="og:url" content="http://michaelhsu.tw/page/3/">
+<meta property="og:site_name" content="Michael Hsu.tw">
+<meta property="og:description" content="一個喜歡網頁開發（Web developer）以及網路資料探勘（Mining）的部落客。">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Michael Hsu.tw">
+<meta name="twitter:description" content="一個喜歡網頁開發（Web developer）以及網路資料探勘（Mining）的部落客。">
+<meta name="twitter:creator" content="@evenchange4">
+
+  
+    <link rel="alternative" href="http://feeds.feedburner.com/michael-hsu-tw" title="Michael Hsu.tw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33845990-9']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <!-- <header id="header"> -->
+  <!-- <div id="banner"></div> -->
+  <!-- <div id="header-outer" class="outer"> -->
+<!--     <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Michael Hsu.tw</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+        </h2>
+      
+    </div> -->
+
+
+
+  <!-- </div> -->
+<!-- </header> -->
+
+<header class="site-head" >
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://about.michaelhsu.tw/">About</a>
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw">Subscription</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="http://feeds.feedburner.com/michael-hsu-tw" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap" style="z-index:1">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://michaelhsu.tw"></form>
+      </div>
+    </div>
+    
+  <div class="vertical">
+    <div class="site-head-content inner">
+      <div id="header-title" class="inner">
+         
+          <a class="blog-logo" href="/">
+            <img src="http://www.gravatar.com/avatar/66799cbbe4d891ad4eca39b95119fe18?s=100" alt="Blog Logo"/>
+          </a> 
+        
+        <h1 id="logo-wrap">
+          <a href="/" id="logo">Michael Hsu.tw</a>
+        </h1>
+        
+          <h2 id="subtitle-wrap">
+            <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+          </h2>
+        
+      </div> 
+    </div>
+  </div> <!-- end vertical -->
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-rhadoop-實作推薦系統" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/06/21/rhadoop-實作推薦系統/">RHadoop 實作推薦系統</a>
+    </h1>
+  
+
+        <a href="/2013/06/21/rhadoop-實作推薦系統/" class="article-date">
+  <time datetime="2013-06-21T04:37:11.000Z" itemprop="datePublished">June 21, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <h2 id="簡介">簡介</h2>
+<ul>
+<li>課程： <a href="https://sites.google.com/site/cloudcomputingspecialproject/101-2-progress-report" target="_blank" rel="external">101-2 NTU cloud computing special project</a></li>
+<li>Proposal title: <a href="https://docs.google.com/viewer?a=v&amp;pid=sites&amp;srcid=ZGVmYXVsdGRvbWFpbnxjbG91ZGNvbXB1dGluZ3NwZWNpYWxwcm9qZWN0fGd4OjQxMzkxMWI2YmI2NTI4NjM" target="_blank" rel="external">Large-scale big data mining in cloud system</a> </li>
+<li><a href="https://docs.google.com/document/d/1RHhWToolQXbNJhZx61RizXGwNfkccZS6ZmqvoLiGe4I/edit#" target="_blank" rel="external">Progress Report</a></li>
+<li>source code: <a href="https://github.com/evenchange4/CCSP" target="_blank" rel="external">github.com/evenchange4/CCSP</a></li>
+<li>datasets: <a href="https://drive.google.com/folderview?id=0B41WBNgHd5hjTE5KcmN0b0F5SjA&amp;usp=sharing" target="_blank" rel="external">movielen_dataset.csv (123Mb, preprocessed) </a></li>
+<li>使用整合 R 與 Hadoop 的 package RHadoop (rmr2) 來實作 item-base 的推薦系統。</li>
+<li><img src="http://oytunyuksel.com/wp-content/uploads/post-02-01.jpg" alt="讓小丸子來教你 from oytunyuksel"></li>
+</ul>
+
+        
+
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/06/21/rhadoop-實作推薦系統/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/06/21/rhadoop-實作推薦系統/" data-id="jkxoyr82tmtu13pp" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/06/21/rhadoop-實作推薦系統/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/r/">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/06/21/rhadoop-實作推薦系統/" data-id="jkxoyr82tmtu13pp" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/06/21/rhadoop-實作推薦系統/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/r/">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+</article>
+
+
+  
+    <!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-open-source-list" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/14/open-source-list/">Open Source list</a>
+    </h1>
+  
+
+        <a href="/2013/05/14/open-source-list/" class="article-date">
+  <time datetime="2013-05-14T06:16:12.000Z" itemprop="datePublished">May 14, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <p>簡單記錄一下</p>
+
+        
+
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/05/14/open-source-list/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/05/14/open-source-list/" data-id="fbg7xdr0mo2ug19m" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/05/14/open-source-list/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/05/14/open-source-list/" data-id="fbg7xdr0mo2ug19m" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/05/14/open-source-list/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+</article>
+
+
+  
+    <!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-2013-05-10-private-rss-reader-stringer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/10/2013-05-10-private-rss-reader-stringer/">Host self RSS reader - Stringer</a>
+    </h1>
+  
+
+        <a href="/2013/05/10/2013-05-10-private-rss-reader-stringer/" class="article-date">
+  <time datetime="2013-05-09T21:01:05.000Z" itemprop="datePublished">May 10, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <p>剛剛在 <a href="http://rubyweekly.com/" target="_blank" rel="external">ruby weekly</a> 看到這個玩具，看標題就感覺十分的有趣馬上來玩玩看！</p>
+<blockquote>
+<h1 id="Stringer_-">Stringer -</h1>
+<p>A [work-in-progress] self-hosted, anti-social RSS reader. </p>
+</blockquote>
+<p>是一個私人的 RSS reader 然後可以 host 在 heroku 上！蠻好奇他是怎麼設計的。</p>
+
+        
+
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/05/10/2013-05-10-private-rss-reader-stringer/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/05/10/2013-05-10-private-rss-reader-stringer/" data-id="3ed56jxhrsv8x1ty" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/05/10/2013-05-10-private-rss-reader-stringer/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/05/10/2013-05-10-private-rss-reader-stringer/" data-id="3ed56jxhrsv8x1ty" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/05/10/2013-05-10-private-rss-reader-stringer/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+</article>
+
+
+  
+    <!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-喔-我的-zsh-" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/07/喔-我的-zsh-/">oh-my-zsh 設定</a>
+    </h1>
+  
+
+        <a href="/2013/05/07/喔-我的-zsh-/" class="article-date">
+  <time datetime="2013-05-07T09:11:46.000Z" itemprop="datePublished">May 07, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <p>前陣子介紹了 <a href="http://michaelhsu.tw/2013/04/21/colorful-terminal/" target="_blank" rel="external">漂漂終端機懶人包</a>，把終端機變得美美的方法，但是其實有一個更強大的 framework 叫做 oh-my-zsh，它是一個大家可以一起編輯的 zsh framework，擁有 120+ plugins、120+ themes，所以可以跟大家分享自己的主題，或是拿別人的來用。除了主題之外，他的 plugin 強大的功能也是令大眾喜愛的原因，譬如你想要 <code>簡寫</code> 或 <del>偷懶</del> 的做某件事，如果不想要要靠 batch 檔來執行，可以用 oh-my-zsh 的 custom plugin，然後可以分享給其他人。</p>
+<blockquote>
+<p>你應該開始使用 “OH MY ZSHELL!”</p>
+</blockquote>
+<p><img src="https://github-camo.global.ssl.fastly.net/5c385f15f3eaedb72cfcfbbaf75355b700ac0757/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6f686d797a73682f6f682d6d792d7a73682d6c6f676f2e706e67" alt="▲ oh-my-zsh"></p>
+<p>
+        
+
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/05/07/喔-我的-zsh-/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/05/07/喔-我的-zsh-/" data-id="ojri6dfsly8wrso0" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/05/07/喔-我的-zsh-/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/05/07/喔-我的-zsh-/" data-id="ojri6dfsly8wrso0" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/05/07/喔-我的-zsh-/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+</article>
+
+
+  
+    <!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-rssatom-sitemap-for-seo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/05/rssatom-sitemap-for-seo/">RSS/Atom、Sitemap for SEO</a>
+    </h1>
+  
+
+        <a href="/2013/05/05/rssatom-sitemap-for-seo/" class="article-date">
+  <time datetime="2013-05-05T09:51:30.000Z" itemprop="datePublished">May 05, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <blockquote>
+<p>不會動的，編成 sitemap.xml，會動的，用 rss 提交。 </p>
+<p><img src="http://3.bp.blogspot.com/-x-lZtfOu5rU/Tokfsiby51I/AAAAAAAAEPc/4ixGhkOKwDQ/s1600/sitemap.jpg" alt="sitemap"></p>
+</blockquote>
+<h2 id="一、首先瞭解_RSS_跟_Atom_差別在哪？">一、首先瞭解 RSS 跟 Atom 差別在哪？</h2>
+<ol>
+<li>ATOM is an IETF standard while RSS is not</li>
+<li>ATOM feeds explicitly indicates the content while the browser is left to figure out whether the RSS feed contains plain text or escaped HTML</li>
+<li>ATOM code is modular and reusable while RSS code is not</li>
+<li>RSS still holds dominance in the syndication format due to its head start and popularity</li>
+</ol>
+
+        
+
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/05/05/rssatom-sitemap-for-seo/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/05/05/rssatom-sitemap-for-seo/" data-id="vh055u7vccbngybh" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/05/05/rssatom-sitemap-for-seo/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/05/05/rssatom-sitemap-for-seo/" data-id="vh055u7vccbngybh" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/05/05/rssatom-sitemap-for-seo/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer> -->
+
+  </div>
+  
+</article>
+
+
+  
+    <!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-r-and-hadoop-初體驗" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/01/r-and-hadoop-初體驗/">R and Hadoop 整合初體驗</a>
+    </h1>
+  
+
+        <a href="/2013/05/01/r-and-hadoop-初體驗/" class="article-date">
+  <time datetime="2013-05-01T15:08:17.000Z" itemprop="datePublished">May 01, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <blockquote>
+<p><img src="http://i.imgur.com/IVgmGSJ.jpg" alt="R &amp; Hadoop"><br>當 R 尬上 Hadoop，到底會激盪出什麼樣的火花呢？下面實際跑過書上的範例來為您介紹，三種不一樣的整合方式任君挑選。</p>
+</blockquote>
+<h2 id="目錄">目錄</h2>
+<ol>
+<li>Hadoop &amp; R</li>
+<li>R and Streaming</li>
+<li>Rhipe</li>
+<li>RHadoop</li>
+</ol>
+
+        
+
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/05/01/r-and-hadoop-初體驗/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/05/01/r-and-hadoop-初體驗/" data-id="r6z421n95c4tilmc" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/05/01/r-and-hadoop-初體驗/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/r/">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/05/01/r-and-hadoop-初體驗/" data-id="r6z421n95c4tilmc" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/05/01/r-and-hadoop-初體驗/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/r/">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/f2e/">F2E</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">PostgreSQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r/">R</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spa/">SPA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular-js/">angular.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp-js/">gulp.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/page/">page</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rails/">rails</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Michael Hsu<br>
+      <!-- Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> -->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://about.michaelhsu.tw/" class="mobile-nav-link">About</a>
+  
+    <a href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw" class="mobile-nav-link">Subscription</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'michaelhsutwblog';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Using SSH Connect to Windows Vmware Ubuntu | Michael Hsu.tw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="當你的電腦是 Windows 系統，卻需要 Linux (Ubuntu) 環境的話，選擇架設 Virtual maching 是一個不錯的選擇。或許有許多環境有 For windows 的版本，但是很難避免一些小問題，畢竟 Linux 的資源比較多。
+最近的一個需求情境是這樣的，LAB 的電腦是 Windows 系統，但是我想要 Ruby 去做資料的 Preprocess，但是本身使用 Mac 的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Using SSH Connect to Windows Vmware Ubuntu">
+<meta property="og:url" content="http://michaelhsu.tw/2014/03/15/vmware-port-forwarding/">
+<meta property="og:site_name" content="Michael Hsu.tw">
+<meta property="og:description" content="當你的電腦是 Windows 系統，卻需要 Linux (Ubuntu) 環境的話，選擇架設 Virtual maching 是一個不錯的選擇。或許有許多環境有 For windows 的版本，但是很難避免一些小問題，畢竟 Linux 的資源比較多。
+最近的一個需求情境是這樣的，LAB 的電腦是 Windows 系統，但是我想要 Ruby 去做資料的 Preprocess，但是本身使用 Mac 的">
+<meta property="og:image" content="http://media-cache-ec0.pinimg.com/736x/58/09/a8/5809a8710536ecb65a7894e7288dd994.jpg">
+<meta property="og:image" content="http://media-cache-ec0.pinimg.com/736x/21/d5/75/21d575df4c43fbee3c4e928d5c8ef8a6.jpg">
+<meta property="og:image" content="http://media-cache-ec0.pinimg.com/736x/e0/0a/79/e00a7913afa6c5d590984e1304c898b4.jpg">
+<meta property="og:image" content="http://media-cache-ak0.pinimg.com/736x/48/37/71/483771d3e05ed978d2bf6bf2ef044ab2.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Using SSH Connect to Windows Vmware Ubuntu">
+<meta name="twitter:description" content="當你的電腦是 Windows 系統，卻需要 Linux (Ubuntu) 環境的話，選擇架設 Virtual maching 是一個不錯的選擇。或許有許多環境有 For windows 的版本，但是很難避免一些小問題，畢竟 Linux 的資源比較多。
+最近的一個需求情境是這樣的，LAB 的電腦是 Windows 系統，但是我想要 Ruby 去做資料的 Preprocess，但是本身使用 Mac 的">
+<meta name="twitter:creator" content="@evenchange4">
+
+  
+    <link rel="alternative" href="http://feeds.feedburner.com/michael-hsu-tw" title="Michael Hsu.tw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33845990-9']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <!-- <header id="header"> -->
+  <!-- <div id="banner"></div> -->
+  <!-- <div id="header-outer" class="outer"> -->
+<!--     <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Michael Hsu.tw</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+        </h2>
+      
+    </div> -->
+
+
+
+  <!-- </div> -->
+<!-- </header> -->
+
+<header class="site-head" >
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://about.michaelhsu.tw/">About</a>
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw">Subscription</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="http://feeds.feedburner.com/michael-hsu-tw" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap" style="z-index:1">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://michaelhsu.tw"></form>
+      </div>
+    </div>
+    
+  <div class="vertical">
+    <div class="site-head-content inner">
+      <div id="header-title" class="inner">
+         
+          <a class="blog-logo" href="/">
+            <img src="http://www.gravatar.com/avatar/66799cbbe4d891ad4eca39b95119fe18?s=100" alt="Blog Logo"/>
+          </a> 
+        
+        <h1 id="logo-wrap">
+          <a href="/" id="logo">Michael Hsu.tw</a>
+        </h1>
+        
+          <h2 id="subtitle-wrap">
+            <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+          </h2>
+        
+      </div> 
+    </div>
+  </div> <!-- end vertical -->
+</header>
+      <div class="outer">
+        <section id="main"><!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-vmware-port-forwarding" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Using SSH Connect to Windows Vmware Ubuntu
+    </h1>
+  
+
+        <a href="/2014/03/15/vmware-port-forwarding/" class="article-date">
+  <time datetime="2014-03-15T13:24:55.000Z" itemprop="datePublished">March 15, 2014</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <div id="toc" class="toc-article">
+            <strong class="toc-title">Outline</strong>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Configuration_Environment"><span class="toc-number">1.</span> <span class="toc-text">Configuration Environment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Port_forwarding"><span class="toc-number">2.</span> <span class="toc-text">Port forwarding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How_to_Start_Connecting"><span class="toc-number">3.</span> <span class="toc-text">How to Start Connecting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Folder_Sharing"><span class="toc-number">4.</span> <span class="toc-text">Folder Sharing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#延伸應用與後記"><span class="toc-number">5.</span> <span class="toc-text">延伸應用與後記</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
+            </div>
+        
+
+        <p>當你的電腦是 Windows 系統，卻需要 Linux (Ubuntu) 環境的話，選擇架設 Virtual maching 是一個不錯的選擇。或許有許多環境有 For windows 的版本，但是很難避免一些小問題，畢竟 Linux 的資源比較多。</p>
+<p>最近的一個需求情境是這樣的，LAB 的電腦是 Windows 系統，但是我想要 Ruby 去做資料的 Preprocess，但是本身使用 Mac 的我，實在不習慣 Windows 的 CMD ，所以選擇使用 Vmware 架設一個 <code>Ubuntu 12.04.4 LTS</code> 環境，但是離開實驗室後，要怎麼使用 LAB 電腦撰寫程式呢？</p>
+<!-- 1. Port forwarding
+2. Folder Sharing -->
+
+<a id="more"></a>
+
+<blockquote>
+<p>使用 SSH 登入你遠端電腦的 Vmware Ubuntu</p>
+</blockquote>
+<p>但是要怎麼透過 Windows 的固定 IP 連進你的 Virtual machine 呢？透過 Port Forwarding 的設定將 Vmware Ubuntu 的 Port 對應到 Windows 的 Port。</p>
+<h2 id="Configuration_Environment">Configuration Environment</h2>
+<ol>
+<li>Windows 7 Enterprise, 64-bit 6.1.7601, Service Pack 1, With Memory 16GB</li>
+<li>Licensed VMware® Workstation 10 </li>
+<li>Setup Virtual Machine with Ubuntu 12.04.4 LTS</li>
+<li>Use a NTU fixed IP </li>
+<li>Want to make the SSH/FTP (22/TCP) available to the network</li>
+</ol>
+<h2 id="Port_forwarding">Port forwarding</h2>
+<ol>
+<li><p>Vmware NAT Setting: 首先將 Vmware 新增設定，開啓 <code>Edit</code> &gt; <code>Virtual Network Editor</code> ，選擇使用 <code>NAT</code>（基本上就是 Vmnet8） 的網路連線形態，點選 <code>NAT Setting...</code>，然後 <code>Add</code> 新增一筆。</p>
+<p> <img src="http://media-cache-ec0.pinimg.com/736x/58/09/a8/5809a8710536ecb65a7894e7288dd994.jpg" alt="VMware Port forwardind - NAT setting"></p>
+<p> <em>上束這個例子就是將 Windows 的實體 IP port 5555 對應到 VM 中的 Ubuntu port 22。</em></p>
+</li>
+<li><p>Setup custom Firewall for Port: <code>Windows 防火牆</code> &gt; <code>進階</code> &gt; <code>輸入規則</code> &gt; <code>新增規則</code> ，接者選擇 TCP 以及欲開啟的 Port number （上述例子 55555），就完成開啟 Windows Port 的設定了。</p>
+<p> <img src="http://media-cache-ec0.pinimg.com/736x/21/d5/75/21d575df4c43fbee3c4e928d5c8ef8a6.jpg" alt="Open port for Windows"></p>
+</li>
+</ol>
+<h2 id="How_to_Start_Connecting">How to Start Connecting</h2>
+<p>當然你需要將你的 Ubuntu 安裝好 SSH (參考 Reference)， 然後直接在 terminal 輸入以下指令，或是使用 Putty 等軟體登入。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ssh <span class="variable">&lt;userid&gt;</span><span class="comment">@&lt;IP&gt; -p &lt;port_number&gt;</span></div><div class="line"><span class="comment"># example: </span></div><div class="line"><span class="comment"># ssh michaelhsu@140.112.117.123 -p 55555</span></div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>恭喜你可以在任意地方使用 SSH 登入你的 VM 工作了！，當然 FTP 也是可以。</p>
+</blockquote>
+<h2 id="Folder_Sharing">Folder Sharing</h2>
+<p>當然你也可以直接操作 LAB 電腦來使用 Windows Putty SSH 登入你的 VM Ubuntu，但是問題來了，原本存在 Windows 實體硬碟中欲處理的 Dataset 該怎麼搬移進去 Virtual Machine 呢？你可以想說用拖曳的（VMware 小檔案的確可以！），或是使用 FTP 連線上傳，但是當資料量大到無法這樣做呢？例如我最近在處理 Twitter 7 month raw Dataset 將近 25GM 的檔案，該怎麼辦呢！？頭疼了。</p>
+<blockquote>
+<p>直接與你的 Virtual Machine Share Folder 是一個很不錯的選擇。</p>
+</blockquote>
+<p>a. Install Vmware Tools: 安裝 Vmware 共享資料夾所需要的工具：透過設定 <code>VM</code> &gt; <code>Install Vmware Toola</code> 接者會跳出下載下來的目錄資料夾，將 <code>VMwareTools-8.4.5-324285.tar.gz</code>（版本號可能不同） 複製到 <code>/tmp</code> 底下接者解壓縮</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>cd /tmp</div><div class="line"><span class="variable">$ </span>tar zxvf <span class="constant">VMwareTools</span>-<span class="number">8.4</span>.<span class="number">5</span>-<span class="number">324285</span>.tar.gz</div></pre></td></tr></table></figure>
+
+<p>並且進行安裝：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ cd vmware-tools-distrib</div><div class="line">$ sudo ./vmware-install.pl</div><div class="line"></div><div class="line"><span class="preprocessor"># 隨者指示安裝完畢後出現</span></div><div class="line"><span class="preprocessor">#</span></div><div class="line"><span class="preprocessor"># Enjoy,</span></div><div class="line"><span class="preprocessor"># 　　--the VMware team</span></div></pre></td></tr></table></figure>
+
+<p>b. Setup Shared Folders: 透過 Vmware 設定 <code>Virtual Machine Setting</code> &gt; <code>Options</code> ，在 VM Power Off 的情況下可以新增一筆欲共用的資料夾。</p>
+<p><img src="http://media-cache-ec0.pinimg.com/736x/e0/0a/79/e00a7913afa6c5d590984e1304c898b4.jpg" alt="Folder Sharing"></p>
+<p>於是乎你的資料就來去自如，你可能會覺得這樣很像 Dropbox 的功能，他是真正的不透過網路共用資料，也是無時差的同步，不過必須額外小心處理！</p>
+<p><img src="http://media-cache-ak0.pinimg.com/736x/48/37/71/483771d3e05ed978d2bf6bf2ef044ab2.jpg" alt="Working with Vmware Ubuntu in Windows 7"></p>
+<p><em>上述應用為使用 Windows 的 Sublime3 寫完程式後並儲存在分享的資料夾中，直接使用 Putty 登入的 VM Ubuntu 的環境執行該程式</em></p>
+<h2 id="延伸應用與後記">延伸應用與後記</h2>
+<p>突然想起來之前在 TMI (台灣創意工場)  intern 的時候，曾經使用 Vmware Centos 架設 PHP Server ，原來我很早就接觸過這種連線的設定，只是一直沒有沒有機會使用到。這邊我另外做了一個嘗試多開一個 Port 給 VM Ubuntu run <code>Rails</code> project ，並透過上面教學的步驟設定，成功可以將外面的連線導到 Virtual Machine 架設的 Server 中，如此以來就可以打在一個最佳的架設環境了！感到熱血沸騰啊。</p>
+<p>最後感謝坐我隔壁的 LAB 同學，一起討論學到蠻多東西的，我覺得未來一年半應該也會常常提到他，應此以後就稱他為 <del>陽光宅男</del> <code>Mr. Sunshine</code> 好了。</p>
+<h2 id="Reference">Reference</h2>
+<ul>
+<li><a href="http://windows.microsoft.com/zh-tw/windows/open-port-windows-firewall#1TC=windows-7" target="_blank" rel="external">在 Windows 防火牆中開啟連接埠</a></li>
+<li><a href="https://www.virten.net/2013/03/how-to-setup-port-forwarding-in-vmware-workstation-9/" target="_blank" rel="external">How to Setup Port Forwarding in VMware Workstation 9</a></li>
+<li><a href="http://compositecode.com/2013/11/10/using-ssh-locally-to-work-with-ubuntu-vm-vmware-tools-installation-via-shell/" target="_blank" rel="external">Using SSH Locally to Work With Ubuntu VM + VMware Tools Installation via Shell</a></li>
+<li><a href="http://www.cnblogs.com/RealOnlyme/archive/2012/04/08/2437811.html" target="_blank" rel="external">[转载]VMware 虚拟机安装Ubuntu 11.10使用share folders共享目录</a></li>
+</ul>
+
+        
+          <!-- Go to your Addthis.com Dashboard to update any options -->
+          <div class="addthis_native_toolbox" style="z-index: 1"></div>
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2014/03/15/vmware-port-forwarding/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2014/03/15/vmware-port-forwarding/" data-id="if3mwd0ynrkltdny" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2014/03/15/vmware-port-forwarding/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vmware/">vmware</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2014/03/15/vmware-port-forwarding/" data-id="if3mwd0ynrkltdny" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2014/03/15/vmware-port-forwarding/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vmware/">vmware</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/03/17/2014-03-17-cpp-tutorial-for-the-mac/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C++ Tutorial for the Mac User, Include self-defined header files
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/12/21/use-linux-screen/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">為什麼你該使用 Linux Screen</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/f2e/">F2E</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">PostgreSQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r/">R</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spa/">SPA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular-js/">angular.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp-js/">gulp.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/page/">page</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rails/">rails</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Michael Hsu<br>
+      <!-- Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> -->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://about.michaelhsu.tw/" class="mobile-nav-link">About</a>
+  
+    <a href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw" class="mobile-nav-link">Subscription</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'michaelhsutwblog';
+  
+  var disqus_url = 'http://michaelhsu.tw/2014/03/15/vmware-port-forwarding/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

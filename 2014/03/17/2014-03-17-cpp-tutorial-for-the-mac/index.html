@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>C++ Tutorial for the Mac User, Include self-defined header files | Michael Hsu.tw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="For the course of NTU Programming Design, Spring 2014
+If you want to compile a C++ program that includes self-defined header files on Mac or other Linux environment. We suggest you the following two w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ Tutorial for the Mac User, Include self-defined header files">
+<meta property="og:url" content="http://michaelhsu.tw/2014/03/17/2014-03-17-cpp-tutorial-for-the-mac/">
+<meta property="og:site_name" content="Michael Hsu.tw">
+<meta property="og:description" content="For the course of NTU Programming Design, Spring 2014
+If you want to compile a C++ program that includes self-defined header files on Mac or other Linux environment. We suggest you the following two w">
+<meta property="og:image" content="http://media-cache-ec0.pinimg.com/736x/a2/ce/2c/a2ce2ca0ce15d4723e114adcdf4782c3.jpg">
+<meta property="og:image" content="http://media-cache-ec0.pinimg.com/originals/31/ae/31/31ae31f1aaeb260267263faee8a433b2.jpg">
+<meta property="og:image" content="http://media-cache-ec0.pinimg.com/originals/0c/ce/39/0cce398d637b44bc189ef32d8d6b2f33.jpg">
+<meta property="og:image" content="http://media-cache-ak0.pinimg.com/originals/4e/99/11/4e9911c6a8f276155b9076785ec407b5.jpg">
+<meta property="og:image" content="http://media-cache-ec0.pinimg.com/736x/85/aa/1b/85aa1b5598a9008a7ae5a4a66aec2f0b.jpg">
+<meta property="og:image" content="http://media-cache-cd0.pinimg.com/originals/67/7d/75/677d75783e85548b6b3995235da870f8.jpg">
+<meta property="og:image" content="http://media-cache-ec0.pinimg.com/originals/c7/03/36/c70336e5b0bc319cac47cf053948b02a.jpg">
+<meta property="og:image" content="http://media-cache-ak0.pinimg.com/originals/38/7c/87/387c8791e7deb2c373f9e082eb6e5efd.jpg">
+<meta property="og:image" content="http://media-cache-ak0.pinimg.com/originals/0b/65/78/0b6578094de1329f9eb5ff60bdf06d67.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++ Tutorial for the Mac User, Include self-defined header files">
+<meta name="twitter:description" content="For the course of NTU Programming Design, Spring 2014
+If you want to compile a C++ program that includes self-defined header files on Mac or other Linux environment. We suggest you the following two w">
+<meta name="twitter:creator" content="@evenchange4">
+
+  
+    <link rel="alternative" href="http://feeds.feedburner.com/michael-hsu-tw" title="Michael Hsu.tw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33845990-9']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <!-- <header id="header"> -->
+  <!-- <div id="banner"></div> -->
+  <!-- <div id="header-outer" class="outer"> -->
+<!--     <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Michael Hsu.tw</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+        </h2>
+      
+    </div> -->
+
+
+
+  <!-- </div> -->
+<!-- </header> -->
+
+<header class="site-head" >
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://about.michaelhsu.tw/">About</a>
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw">Subscription</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="http://feeds.feedburner.com/michael-hsu-tw" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap" style="z-index:1">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://michaelhsu.tw"></form>
+      </div>
+    </div>
+    
+  <div class="vertical">
+    <div class="site-head-content inner">
+      <div id="header-title" class="inner">
+         
+          <a class="blog-logo" href="/">
+            <img src="http://www.gravatar.com/avatar/66799cbbe4d891ad4eca39b95119fe18?s=100" alt="Blog Logo"/>
+          </a> 
+        
+        <h1 id="logo-wrap">
+          <a href="/" id="logo">Michael Hsu.tw</a>
+        </h1>
+        
+          <h2 id="subtitle-wrap">
+            <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+          </h2>
+        
+      </div> 
+    </div>
+  </div> <!-- end vertical -->
+</header>
+      <div class="outer">
+        <section id="main"><!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-2014-03-17-cpp-tutorial-for-the-mac" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C++ Tutorial for the Mac User, Include self-defined header files
+    </h1>
+  
+
+        <a href="/2014/03/17/2014-03-17-cpp-tutorial-for-the-mac/" class="article-date">
+  <time datetime="2014-03-17T00:11:26.000Z" itemprop="datePublished">March 17, 2014</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <div id="toc" class="toc-article">
+            <strong class="toc-title">Outline</strong>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Using_Commands_in_Terminal_(Recommended)"><span class="toc-number">1.</span> <span class="toc-text">Using Commands in Terminal (Recommended)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using_Xcode"><span class="toc-number">2.</span> <span class="toc-text">Using Xcode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#後記"><span class="toc-number">3.</span> <span class="toc-text">後記</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+            </div>
+        
+
+        <p>For the course of NTU <a href="http://www.im.ntu.edu.tw/~lckung/courses/PDSp14/" target="_blank" rel="external">Programming Design, Spring 2014</a></p>
+<p>If you want to compile a C++ program that includes self-defined header files on Mac or other Linux environment. We suggest you the following two ways to do that. One way is using g++ to compile and run programs in terminal (Recommended). Another way is using Xcode to new a project (i.e., a file with filename extension <em>.xcodeproj</em>).<br>Here, we provide two <em>cpp</em> files, and one <em>header</em> file to you for demonstrating how you can run it on Mac. Just the same as windows’ Dev-C++. Download <a href="https://github.com/evenchange4/102-2_PD_Cpp-Tutorial-for-the-Mac/archive/master.zip" target="_blank" rel="external">example code</a> that was mentioned in the class.</p>
+<a id="more"></a>
+
+<h2 id="Using_Commands_in_Terminal_(Recommended)">Using Commands in Terminal (Recommended)</h2>
+<p>In Figure 1, find terminal in the Spotlight results, and then click it to open a new Terminal windows (Figure 2).</p>
+<p><img src="http://media-cache-ec0.pinimg.com/736x/a2/ce/2c/a2ce2ca0ce15d4723e114adcdf4782c3.jpg" alt="▲ Figure 1: Search your Terminal on Mac."></p>
+<p><img src="http://media-cache-ec0.pinimg.com/originals/31/ae/31/31ae31f1aaeb260267263faee8a433b2.jpg" alt="▲ Figure 2: Terminal windows view."></p>
+<p>Before starting, some basic knowledge you need to know is about unix-like system command-line commands. Here we list some useful commands.<br>First, we need to change directory <code>cd path</code> to the right one which your code is available under this folder. We assume that the codes are under the path</p>
+<p><strong> <em>~/Downloads/project</em> </strong></p>
+<p>And then we need to to switch our path to the destination path of project.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> Downloads/project</div></pre></td></tr></table></figure>
+
+<p>Then we type the command below to list <code>li</code> what files are under the folder project.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="keyword">ls</span></div></pre></td></tr></table></figure>
+
+<p>And, we can compile our C++ codes as below. The two cpp files will be linked together automatically (i.e., It links all the object files that are separated by a white space.).  Here we will get one executable file (e.g., run). <code>-o filename</code> is an argument of output file name.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">$</span> <span class="comment">g</span><span class="literal">+</span><span class="literal">+</span> <span class="comment">main</span><span class="string">.</span><span class="comment">cpp</span> <span class="comment">myMax</span><span class="string">.</span><span class="comment">cpp</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">run</span></div></pre></td></tr></table></figure>
+
+<p>Finally, execute <code>./program</code> the program, and the results will be printed on the Terminal windows. The above steps are shown in Figure 3.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>./run</div></pre></td></tr></table></figure>
+
+<p><img src="http://media-cache-ec0.pinimg.com/originals/0c/ce/39/0cce398d637b44bc189ef32d8d6b2f33.jpg" alt="▲ Figure 3: Screenshot of final results."></p>
+<h2 id="Using_Xcode">Using Xcode</h2>
+<p>We use the Xcode in Mac which is almost the same as windows’ Dev-C++. In Figure 4, we create a new Xcode project, and then select the <strong> <em>OSX &gt; Application &gt; Command Line Tool</em> </strong> option (Figure 5).</p>
+<p><img src="http://media-cache-ak0.pinimg.com/originals/4e/99/11/4e9911c6a8f276155b9076785ec407b5.jpg" alt="▲ Figure 4: Create a new Xcode project."></p>
+<p><img src="http://media-cache-ec0.pinimg.com/736x/85/aa/1b/85aa1b5598a9008a7ae5a4a66aec2f0b.jpg" alt="▲ Figure 5: OSX &gt; Application &gt; Command Line Tool"></p>
+<p>In Figure 6, you need to name the product first, and keep the product type as C++ (of course).  Then, we put all of the downloaded source codes in the project, but we need some tips to do that. Now, create two empty files manually (<strong><em>File &gt; new &gt; File</em></strong>), and those will be your <em>cpp</em> file and <em>header</em> file (Figure 7 and Figure 8).</p>
+<p><img src="http://media-cache-cd0.pinimg.com/originals/67/7d/75/677d75783e85548b6b3995235da870f8.jpg" alt="▲ Figure 6: Name the Product."></p>
+<p><img src="http://media-cache-ec0.pinimg.com/originals/c7/03/36/c70336e5b0bc319cac47cf053948b02a.jpg" alt="▲ Figure 7: Create two empty files manually."></p>
+<p><img src="http://media-cache-ak0.pinimg.com/originals/38/7c/87/387c8791e7deb2c373f9e082eb6e5efd.jpg" alt="▲ Figure 8: Those are your cpp file and header file."></p>
+<p>Finally, we can execute your project, and we will get the results in the console window in the bottom of Xcode (Figure 9).</p>
+<p><img src="http://media-cache-ak0.pinimg.com/originals/0b/65/78/0b6578094de1329f9eb5ff60bdf06d67.jpg" alt="▲ Figure 9: Execute Project."></p>
+<h2 id="後記">後記</h2>
+<p>第一次用英文打這種 Tutorial，因為當了 全英文授課的 PD 助教所以需要全英文的文件，希望一學期過後破爛的英文可以稍微有些長進ＱＱ 特別感謝 Lynn 從旁協助。</p>
+<h2 id="Reference">Reference</h2>
+<ul>
+<li><a href="https://github.com/evenchange4/102-1_DS_TA_Sample-code/tree/master/ADT%20List%20code" target="_blank" rel="external">ADT List implement sample code</a></li>
+<li><a href="https://docs.google.com/viewer?a=v&amp;pid=sites&amp;srcid=ZGVmYXVsdGRvbWFpbnxudHVjc2llYzIwMTJ8Z3g6MWE1NzkzNzMxNzI0ODVmZQ" target="_blank" rel="external">2012.09.11 程式編輯與編譯環境安裝 Summary</a></li>
+<li><a href="https://gist.github.com/evenchange4/52ba298788b23bda9ac3" target="_blank" rel="external">Class 範例程式</a></li>
+</ul>
+
+        
+          <!-- Go to your Addthis.com Dashboard to update any options -->
+          <div class="addthis_native_toolbox" style="z-index: 1"></div>
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2014/03/17/2014-03-17-cpp-tutorial-for-the-mac/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2014/03/17/2014-03-17-cpp-tutorial-for-the-mac/" data-id="zdxgj65axnxr2x6r" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2014/03/17/2014-03-17-cpp-tutorial-for-the-mac/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2014/03/17/2014-03-17-cpp-tutorial-for-the-mac/" data-id="zdxgj65axnxr2x6r" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2014/03/17/2014-03-17-cpp-tutorial-for-the-mac/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/05/06/R-on-Linux/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Run R script from command line on Ubuntu
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/15/vmware-port-forwarding/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Using SSH Connect to Windows Vmware Ubuntu</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/f2e/">F2E</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">PostgreSQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r/">R</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spa/">SPA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular-js/">angular.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp-js/">gulp.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/page/">page</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rails/">rails</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Michael Hsu<br>
+      <!-- Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> -->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://about.michaelhsu.tw/" class="mobile-nav-link">About</a>
+  
+    <a href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw" class="mobile-nav-link">Subscription</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'michaelhsutwblog';
+  
+  var disqus_url = 'http://michaelhsu.tw/2014/03/17/2014-03-17-cpp-tutorial-for-the-mac/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

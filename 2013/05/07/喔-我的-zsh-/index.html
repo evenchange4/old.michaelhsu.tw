@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>oh-my-zsh 設定 | Michael Hsu.tw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前陣子介紹了 漂漂終端機懶人包，把終端機變得美美的方法，但是其實有一個更強大的 framework 叫做 oh-my-zsh，它是一個大家可以一起編輯的 zsh framework，擁有 120+ plugins、120+ themes，所以可以跟大家分享自己的主題，或是拿別人的來用。除了主題之外，他的 plugin 強大的功能也是令大眾喜愛的原因，譬如你想要 簡寫 或 偷懶 的做某件事，如果不想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oh-my-zsh 設定">
+<meta property="og:url" content="http://michaelhsu.tw/2013/05/07/喔-我的-zsh-/">
+<meta property="og:site_name" content="Michael Hsu.tw">
+<meta property="og:description" content="前陣子介紹了 漂漂終端機懶人包，把終端機變得美美的方法，但是其實有一個更強大的 framework 叫做 oh-my-zsh，它是一個大家可以一起編輯的 zsh framework，擁有 120+ plugins、120+ themes，所以可以跟大家分享自己的主題，或是拿別人的來用。除了主題之外，他的 plugin 強大的功能也是令大眾喜愛的原因，譬如你想要 簡寫 或 偷懶 的做某件事，如果不想">
+<meta property="og:image" content="https://github-camo.global.ssl.fastly.net/5c385f15f3eaedb72cfcfbbaf75355b700ac0757/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6f686d797a73682f6f682d6d792d7a73682d6c6f676f2e706e67">
+<meta property="og:image" content="http://i.imgur.com/ZC7hTtO.png">
+<meta property="og:image" content="http://media-cache-ec0.pinimg.com/736x/b9/41/fd/b941fdd237c0707c91a3bc6d0c23ffad.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="oh-my-zsh 設定">
+<meta name="twitter:description" content="前陣子介紹了 漂漂終端機懶人包，把終端機變得美美的方法，但是其實有一個更強大的 framework 叫做 oh-my-zsh，它是一個大家可以一起編輯的 zsh framework，擁有 120+ plugins、120+ themes，所以可以跟大家分享自己的主題，或是拿別人的來用。除了主題之外，他的 plugin 強大的功能也是令大眾喜愛的原因，譬如你想要 簡寫 或 偷懶 的做某件事，如果不想">
+<meta name="twitter:creator" content="@evenchange4">
+
+  
+    <link rel="alternative" href="http://feeds.feedburner.com/michael-hsu-tw" title="Michael Hsu.tw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33845990-9']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <!-- <header id="header"> -->
+  <!-- <div id="banner"></div> -->
+  <!-- <div id="header-outer" class="outer"> -->
+<!--     <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Michael Hsu.tw</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+        </h2>
+      
+    </div> -->
+
+
+
+  <!-- </div> -->
+<!-- </header> -->
+
+<header class="site-head" >
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://about.michaelhsu.tw/">About</a>
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw">Subscription</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="http://feeds.feedburner.com/michael-hsu-tw" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap" style="z-index:1">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://michaelhsu.tw"></form>
+      </div>
+    </div>
+    
+  <div class="vertical">
+    <div class="site-head-content inner">
+      <div id="header-title" class="inner">
+         
+          <a class="blog-logo" href="/">
+            <img src="http://www.gravatar.com/avatar/66799cbbe4d891ad4eca39b95119fe18?s=100" alt="Blog Logo"/>
+          </a> 
+        
+        <h1 id="logo-wrap">
+          <a href="/" id="logo">Michael Hsu.tw</a>
+        </h1>
+        
+          <h2 id="subtitle-wrap">
+            <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+          </h2>
+        
+      </div> 
+    </div>
+  </div> <!-- end vertical -->
+</header>
+      <div class="outer">
+        <section id="main"><!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-喔-我的-zsh-" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      oh-my-zsh 設定
+    </h1>
+  
+
+        <a href="/2013/05/07/喔-我的-zsh-/" class="article-date">
+  <time datetime="2013-05-07T09:11:46.000Z" itemprop="datePublished">May 07, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <div id="toc" class="toc-article">
+            <strong class="toc-title">Outline</strong>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell?_bash_v-s-_zsh"><span class="toc-number">1.</span> <span class="toc-text">Shell? bash v.s. zsh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Configuration_Environment"><span class="toc-number">2.</span> <span class="toc-text">Configuration Environment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Install_oh-my-zsh"><span class="toc-number">3.</span> <span class="toc-text">Install oh-my-zsh</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Step_1:_github_下載_oh-my-zsh"><span class="toc-number">3.1.</span> <span class="toc-text">Step 1: github 下載 oh-my-zsh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step_2:_設定_PATH，railscasts_Oh_My_ZSH"><span class="toc-number">3.2.</span> <span class="toc-text">Step 2: 設定 PATH，railscasts Oh My ZSH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step_3:_設定_zsh_vi_~/-zshrc，下面是我目前的設定檔範例"><span class="toc-number">3.3.</span> <span class="toc-text">Step 3: 設定 zsh vi ~/.zshrc，下面是我目前的設定檔範例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step_4:_mac_iterm2_設定_default_zsh"><span class="toc-number">3.4.</span> <span class="toc-text">Step 4: mac iterm2 設定 default zsh</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定義主題"><span class="toc-number">4.</span> <span class="toc-text">自定義主題</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plugin"><span class="toc-number">5.</span> <span class="toc-text">Plugin</span></a></li></ol>
+            </div>
+        
+
+        <p>前陣子介紹了 <a href="http://michaelhsu.tw/2013/04/21/colorful-terminal/" target="_blank" rel="external">漂漂終端機懶人包</a>，把終端機變得美美的方法，但是其實有一個更強大的 framework 叫做 oh-my-zsh，它是一個大家可以一起編輯的 zsh framework，擁有 120+ plugins、120+ themes，所以可以跟大家分享自己的主題，或是拿別人的來用。除了主題之外，他的 plugin 強大的功能也是令大眾喜愛的原因，譬如你想要 <code>簡寫</code> 或 <del>偷懶</del> 的做某件事，如果不想要要靠 batch 檔來執行，可以用 oh-my-zsh 的 custom plugin，然後可以分享給其他人。</p>
+<blockquote>
+<p>你應該開始使用 “OH MY ZSHELL!”</p>
+</blockquote>
+<p><img src="https://github-camo.global.ssl.fastly.net/5c385f15f3eaedb72cfcfbbaf75355b700ac0757/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6f686d797a73682f6f682d6d792d7a73682d6c6f676f2e706e67" alt="▲ oh-my-zsh"></p>
+<p><a id="more"></a></p>
+<h2 id="Shell?_bash_v-s-_zsh">Shell? bash v.s. zsh</h2>
+<p>至於兩個 Shell 差別在哪？來看看官方 <a href="http://zsh.sourceforge.net/FAQ/zshfaq02.html#l14" target="_blank" rel="external">FAQ</a> 說法：</p>
+<p>2.5: Similarities with bash</p>
+<p>The Bourne-Again Shell, <code>bash</code>, is another enhanced Bourne-like shell; the most obvious difference from <code>zsh</code> is that it does not attempt to emulate the Korn shell. Since both shells are under active development it is probably not sensible to be too specific here. Broadly, <code>bash</code> has paid more attention to standards compliancy (i.e. POSIX) for longer, and has so far avoided the more abstruse interactive features (programmable completion, etc.) that <code>zsh</code> has.</p>
+<p>但我覺得差別最大的應該是 <code>tab</code> 鍵的應用。</p>
+<h2 id="Configuration_Environment">Configuration Environment</h2>
+<ol>
+<li>Unix-like system: OSX</li>
+<li>Linux: Ubuntu</li>
+</ol>
+<h2 id="Install_oh-my-zsh">Install oh-my-zsh</h2>
+<h3 id="Step_1:_github_下載_oh-my-zsh">Step 1: github 下載 <a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="external">oh-my-zsh</a></h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -L http<span class="variable">s:</span>//github.<span class="keyword">com</span>/robbyrussell/oh-my-zsh/raw/master/tools/install.<span class="keyword">sh</span> | <span class="keyword">sh</span></div></pre></td></tr></table></figure>
+
+<h3 id="Step_2:_設定_PATH，railscasts_Oh_My_ZSH">Step 2: 設定 PATH，<a href="http://railscasts.com/episodes/308-oh-my-zsh?view=comments" target="_blank" rel="external">railscasts Oh My ZSH</a></h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cat</span> ~/.bash_profile &gt;&gt; ~/.zshrc</div></pre></td></tr></table></figure>
+
+<h3 id="Step_3:_設定_zsh_vi_~/-zshrc，下面是我目前的設定檔範例">Step 3: 設定 zsh <code>vi ~/.zshrc</code>，下面是我目前的設定檔範例</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor"># Path to your oh-my-zsh configuration.</span></div><div class="line">ZSH=$HOME/.oh-my-zsh</div><div class="line"></div><div class="line"><span class="preprocessor"># Set name of the theme to load.</span></div><div class="line"><span class="preprocessor"># Look in ~/.oh-my-zsh/themes/</span></div><div class="line"><span class="preprocessor"># Optionally, if you set this to "random", it'll load a random theme each</span></div><div class="line"><span class="preprocessor"># time that oh-my-zsh is loaded.</span></div><div class="line">ZSH_THEME=<span class="string">"kennethreitz"</span></div><div class="line"><span class="preprocessor">#ZSH_THEME="eastwood"</span></div><div class="line"><span class="preprocessor"># Example aliases</span></div><div class="line"><span class="preprocessor"># alias zshconfig="mate ~/.zshrc"</span></div><div class="line"><span class="preprocessor"># alias ohmyzsh="mate ~/.oh-my-zsh"</span></div><div class="line"></div><div class="line"><span class="preprocessor"># Set to this to use case-sensitive completion</span></div><div class="line"><span class="preprocessor"># CASE_SENSITIVE="true"</span></div><div class="line"></div><div class="line"><span class="preprocessor"># Comment this out to disable bi-weekly auto-update checks</span></div><div class="line"><span class="preprocessor"># DISABLE_AUTO_UPDATE="true"</span></div><div class="line">DISABLE_UPDATE_PROMPT=<span class="string">"true"</span></div><div class="line"><span class="preprocessor"># Uncomment to change how often before auto-updates occur? (in days)</span></div><div class="line"><span class="preprocessor"># export UPDATE_ZSH_DAYS=13</span></div><div class="line"></div><div class="line"><span class="preprocessor"># Uncomment following line if you want to disable colors in ls</span></div><div class="line"> DISABLE_LS_COLORS=<span class="string">"true"</span></div><div class="line"></div><div class="line"><span class="preprocessor"># Uncomment following line if you want to disable autosetting terminal title.</span></div><div class="line"><span class="preprocessor"># DISABLE_AUTO_TITLE="true"</span></div><div class="line"></div><div class="line"><span class="preprocessor"># Uncomment following line if you want to disable command autocorrection</span></div><div class="line"> DISABLE_CORRECTION=<span class="string">"true"</span></div><div class="line"></div><div class="line"><span class="preprocessor"># Uncomment following line if you want red dots to be displayed while waiting for completion</span></div><div class="line"><span class="preprocessor"># COMPLETION_WAITING_DOTS="true"</span></div><div class="line"></div><div class="line"><span class="preprocessor"># Uncomment following line if you want to disable marking untracked files under</span></div><div class="line"><span class="preprocessor"># VCS as dirty. This makes repository status check for large repositories much,</span></div><div class="line"><span class="preprocessor"># much faster.</span></div><div class="line"><span class="preprocessor"># DISABLE_UNTRACKED_FILES_DIRTY="true"</span></div><div class="line"></div><div class="line"><span class="preprocessor"># Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)</span></div><div class="line"><span class="preprocessor"># Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/</span></div><div class="line"><span class="preprocessor"># Example format: plugins=(rails git textmate ruby lighthouse)</span></div><div class="line">plugins=(sublime)</div><div class="line"></div><div class="line">source $ZSH/oh-my-zsh.sh</div><div class="line"></div><div class="line"><span class="preprocessor"># Customize to your needs...</span></div><div class="line"></div><div class="line">[[ -s <span class="string">"$HOME/.rvm/scripts/rvm"</span> ]] && source <span class="string">"$HOME/.rvm/scripts/rvm"</span></div><div class="line"><span class="preprocessor"># Load RVM into a shell session *as a function*</span></div></pre></td></tr></table></figure>
+
+<h3 id="Step_4:_mac_iterm2_設定_default_zsh">Step 4: mac iterm2 設定 default zsh</h3>
+<p><img src="http://i.imgur.com/ZC7hTtO.png" alt="▲ mac iterm2"></p>
+<h2 id="自定義主題">自定義主題</h2>
+<p>主題除了在 github <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Themes" target="_blank" rel="external">wiki</a> 上挑選外，還可以查看圖示列表 <a href="http://zshthem.es/all/" target="_blank" rel="external">http://zshthem.es/all/</a>。而我最後挑選了 <code>kennethreitz</code> 作為我的主題，並且做了一些更動，以下是我的主題設定檔:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">vim</span> ~/.oh-my-zsh/themes/kennethreitz.zsh-theme</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="title">local</span> return_code=<span class="string">"%(?..%{<span class="variable">$fg</span>[red]%}%? ↵%{<span class="variable">$reset_color</span>%})"</span></div><div class="line"></div><div class="line">PROMPT=<span class="string">'</span></div><div class="line">[%{<span class="variable">$fg</span>[blue]%}%~%{<span class="variable">$reset_color</span>%} <span class="variable">${return_code}</span>]</div><div class="line">%{<span class="variable">$fg</span>[green]%}%(!.#.$)%{<span class="variable">$reset_color</span>%} '</div><div class="line">PROMPT2=<span class="string">'%{<span class="variable">$fg</span>[red]%}\ %{<span class="variable">$reset_color</span>%}'</span></div><div class="line">RPS1=<span class="string">'$(git_prompt_info)'</span></div><div class="line"></div><div class="line">ZSH_THEME_GIT_PROMPT_PREFIX=<span class="string">"%{<span class="variable">$reset_color</span>%}%{<span class="variable">$fg</span>[yellow]%}["</span></div><div class="line">ZSH_THEME_GIT_PROMPT_SUFFIX=<span class="string">"]%{<span class="variable">$reset_color</span>%} "</span></div><div class="line">ZSH_THEME_GIT_PROMPT_CLEAN=<span class="string">""</span></div><div class="line">ZSH_THEME_GIT_PROMPT_DIRTY=<span class="string">"%{<span class="variable">$fg</span>[red]%}*%{<span class="variable">$fg</span>[yellow]%}"</span></div></pre></td></tr></table></figure>
+
+<p><img src="http://media-cache-ec0.pinimg.com/736x/b9/41/fd/b941fdd237c0707c91a3bc6d0c23ffad.jpg" alt="▲ Self-config theme"></p>
+<h2 id="Plugin">Plugin</h2>
+<p><a href="https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/sublime/sublime.plugin.zsh" target="_blank" rel="external">sublime.plugin.zsh</a></p>
+<p>舉一個例子我有 <code>plugins=(sublime)</code> ，然後來看看他的 <a href="https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/sublime/sublime.plugin.zsh" target="_blank" rel="external">zsh code</a> 是怎麼寫的，然後讓我們加入幾行 code 使得可以使用 <code>st3</code> 來開啟最新版本的 sublime 3:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim ~<span class="regexp">/.oh-my-zsh/plugins</span><span class="regexp">/sublime/sublime</span>.plugin.zsh</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt"># Sublime Text 2 Aliases</span></span></div><div class="line"></div><div class="line">local _sublime_darwin_paths &gt; /dev/null <span class="number">2</span>&gt;&<span class="number">1</span></div><div class="line">_sublime_darwin_paths=(</div><div class="line">    <span class="string">"/usr/local/bin/subl"</span></div><div class="line">    <span class="string">"$HOME/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl"</span></div><div class="line">    <span class="string">"$HOME/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"</span></div><div class="line">    <span class="string">"$HOME/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"</span></div><div class="line">    <span class="string">"/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl"</span></div><div class="line">    <span class="string">"/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"</span></div><div class="line">    <span class="string">"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">if</span> [[ <span class="variable">$(</span><span class="string">'uname'</span>) == <span class="string">'Linux'</span> ]]; <span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ -f <span class="string">'/usr/bin/sublime_text'</span> ]; <span class="keyword">then</span></div><div class="line">        st_run() { nohup /usr/bin/sublime_text <span class="variable">$@</span> &gt; <span class="regexp">/dev/null</span> & }</div><div class="line">    <span class="keyword">else</span></div><div class="line">        st_run() { nohup /usr/bin/sublime-text <span class="variable">$@</span> &gt; <span class="regexp">/dev/null</span> & }</div><div class="line">    fi</div><div class="line">    <span class="keyword">alias</span> st=st_run</div><div class="line"></div><div class="line">elif  [[ <span class="variable">$(</span><span class="string">'uname'</span>) == <span class="string">'Darwin'</span> ]]; <span class="keyword">then</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> _sublime_path <span class="keyword">in</span> <span class="variable">$_sublime_darwin_paths</span>; <span class="keyword">do</span></div><div class="line">        <span class="keyword">if</span> [[ -a <span class="variable">$_sublime_path</span> ]]; <span class="keyword">then</span></div><div class="line">            <span class="keyword">alias</span> subl=<span class="string">"'$_sublime_path'"</span></div><div class="line">            <span class="keyword">alias</span> st=subl</div><div class="line">            <span class="keyword">break</span></div><div class="line">        fi</div><div class="line">    done</div><div class="line">fi</div><div class="line"></div><div class="line"><span class="keyword">alias</span> stt=<span class="string">'st .'</span></div><div class="line"></div><div class="line"></div><div class="line">local _sublime_darwin_subl3=<span class="regexp">/Applications/</span><span class="constant">Sublime</span>\ <span class="constant">Text</span>.app/<span class="constant">Contents</span>/<span class="constant">SharedSupport</span>/bin/subl</div><div class="line"></div><div class="line"><span class="keyword">if</span>  [[ <span class="variable">$(</span><span class="string">'uname'</span>) == <span class="string">'Darwin'</span> ]]; <span class="keyword">then</span></div><div class="line">  <span class="comment"># Check if Sublime is installed in user's home application directory</span></div><div class="line">  <span class="keyword">if</span> [[ -a <span class="variable">$HOME</span>/<span class="variable">${</span>_sublime_darwin_subl3} ]]; <span class="keyword">then</span></div><div class="line">    <span class="keyword">alias</span> st3=<span class="string">'$HOME/${_sublime_darwin_subl3}'</span></div><div class="line">  <span class="keyword">else</span></div><div class="line">    <span class="keyword">alias</span> st3=<span class="string">'${_sublime_darwin_subl3}'</span></div><div class="line">  fi</div><div class="line">fi</div><div class="line"><span class="keyword">alias</span> stt3=<span class="string">'st3 .'</span></div></pre></td></tr></table></figure>
+
+<p>如此一來就可以透過指令來啓動 sublime囉，超級方便。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>st .</div><div class="line"><span class="comment"># or</span></div><div class="line"><span class="variable">$ </span>st3 .</div></pre></td></tr></table></figure>
+
+
+        
+          <!-- Go to your Addthis.com Dashboard to update any options -->
+          <div class="addthis_native_toolbox" style="z-index: 1"></div>
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/05/07/喔-我的-zsh-/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/05/07/喔-我的-zsh-/" data-id="ojri6dfsly8wrso0" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/05/07/喔-我的-zsh-/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/05/07/喔-我的-zsh-/" data-id="ojri6dfsly8wrso0" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/05/07/喔-我的-zsh-/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/05/10/2013-05-10-private-rss-reader-stringer/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Host self RSS reader - Stringer
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/05/05/rssatom-sitemap-for-seo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">RSS/Atom、Sitemap for SEO</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/f2e/">F2E</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">PostgreSQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r/">R</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spa/">SPA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular-js/">angular.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp-js/">gulp.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/page/">page</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rails/">rails</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Michael Hsu<br>
+      <!-- Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> -->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://about.michaelhsu.tw/" class="mobile-nav-link">About</a>
+  
+    <a href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw" class="mobile-nav-link">Subscription</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'michaelhsutwblog';
+  
+  var disqus_url = 'http://michaelhsu.tw/2013/05/07/喔-我的-zsh-/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

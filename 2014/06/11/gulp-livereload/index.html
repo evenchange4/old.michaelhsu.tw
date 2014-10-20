@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Gulp.js-LiveReload 自動刷新頁面 | Michael Hsu.tw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近又重回學習前端的懷抱，在看蛋頭兄的 Angular.js 的影片邊操作的同時，不斷的 Refresh 網頁真的不是辦法，以前我的想法是就不停的按 CMD+R 就算了，懶得做那麼多自動刷新得設定，但這樣下去真的不是辦法，原來還是會累的，所以就依照目前最潮的方式來學習設置「自動刷新頁面」的功能。於是乎挑選了 Gulp.js + LiveReload with http-server ，或是考慮使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gulp.js-LiveReload 自動刷新頁面">
+<meta property="og:url" content="http://michaelhsu.tw/2014/06/11/gulp-livereload/">
+<meta property="og:site_name" content="Michael Hsu.tw">
+<meta property="og:description" content="最近又重回學習前端的懷抱，在看蛋頭兄的 Angular.js 的影片邊操作的同時，不斷的 Refresh 網頁真的不是辦法，以前我的想法是就不停的按 CMD+R 就算了，懶得做那麼多自動刷新得設定，但這樣下去真的不是辦法，原來還是會累的，所以就依照目前最潮的方式來學習設置「自動刷新頁面」的功能。於是乎挑選了 Gulp.js + LiveReload with http-server ，或是考慮使用">
+<meta property="og:image" content="http://media-cache-ak0.pinimg.com/originals/68/1d/3b/681d3be7a8e194b1b99f29c5eb98ec2a.jpg">
+<meta property="og:image" content="http://media-cache-cd0.pinimg.com/originals/c6/84/7f/c6847f0f85412e6229563f5c556baf7d.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gulp.js-LiveReload 自動刷新頁面">
+<meta name="twitter:description" content="最近又重回學習前端的懷抱，在看蛋頭兄的 Angular.js 的影片邊操作的同時，不斷的 Refresh 網頁真的不是辦法，以前我的想法是就不停的按 CMD+R 就算了，懶得做那麼多自動刷新得設定，但這樣下去真的不是辦法，原來還是會累的，所以就依照目前最潮的方式來學習設置「自動刷新頁面」的功能。於是乎挑選了 Gulp.js + LiveReload with http-server ，或是考慮使用">
+<meta name="twitter:creator" content="@evenchange4">
+
+  
+    <link rel="alternative" href="http://feeds.feedburner.com/michael-hsu-tw" title="Michael Hsu.tw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33845990-9']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <!-- <header id="header"> -->
+  <!-- <div id="banner"></div> -->
+  <!-- <div id="header-outer" class="outer"> -->
+<!--     <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Michael Hsu.tw</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+        </h2>
+      
+    </div> -->
+
+
+
+  <!-- </div> -->
+<!-- </header> -->
+
+<header class="site-head" >
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://about.michaelhsu.tw/">About</a>
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw">Subscription</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="http://feeds.feedburner.com/michael-hsu-tw" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap" style="z-index:1">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://michaelhsu.tw"></form>
+      </div>
+    </div>
+    
+  <div class="vertical">
+    <div class="site-head-content inner">
+      <div id="header-title" class="inner">
+         
+          <a class="blog-logo" href="/">
+            <img src="http://www.gravatar.com/avatar/66799cbbe4d891ad4eca39b95119fe18?s=100" alt="Blog Logo"/>
+          </a> 
+        
+        <h1 id="logo-wrap">
+          <a href="/" id="logo">Michael Hsu.tw</a>
+        </h1>
+        
+          <h2 id="subtitle-wrap">
+            <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+          </h2>
+        
+      </div> 
+    </div>
+  </div> <!-- end vertical -->
+</header>
+      <div class="outer">
+        <section id="main"><!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="true-gulp-livereload" class="article article-type-true" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Gulp.js-LiveReload 自動刷新頁面
+    </h1>
+  
+
+        <a href="/2014/06/11/gulp-livereload/" class="article-date">
+  <time datetime="2014-06-11T15:52:54.000Z" itemprop="datePublished">June 11, 2014</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <div id="toc" class="toc-article">
+            <strong class="toc-title">Outline</strong>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Knowledge_前置小作業"><span class="toc-number">1.</span> <span class="toc-text">Knowledge 前置小作業</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#選擇使用_gulp-livereload_with_http-server"><span class="toc-number">2.</span> <span class="toc-text">選擇使用 gulp-livereload with http-server</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一步：Install_安裝"><span class="toc-number">2.1.</span> <span class="toc-text">第一步：Install 安裝</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二步：Config_前置作業與設定"><span class="toc-number">2.2.</span> <span class="toc-text">第二步：Config 前置作業與設定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三步：Quick_Start_執行"><span class="toc-number">2.3.</span> <span class="toc-text">第三步：Quick Start 執行</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#選擇使用_gulp-connect"><span class="toc-number">3.</span> <span class="toc-text">選擇使用 gulp-connect</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一步：Install_安裝-1"><span class="toc-number">3.1.</span> <span class="toc-text">第一步：Install 安裝</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二步：Config_前置作業與設定-1"><span class="toc-number">3.2.</span> <span class="toc-text">第二步：Config 前置作業與設定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三步：Quick_Start_執行-1"><span class="toc-number">3.3.</span> <span class="toc-text">第三步：Quick Start 執行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.4.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol>
+            </div>
+        
+
+        <p>最近又重回學習前端的懷抱，在看<a href="https://egghead.io/" target="_blank" rel="external">蛋頭兄的 Angular.js</a> 的影片邊操作的同時，不斷的 Refresh 網頁真的不是辦法，以前我的想法是就不停的按 <code>CMD+R</code> 就算了，懶得做那麼多自動刷新得設定，但這樣下去真的不是辦法，原來還是會累的，所以就依照目前最潮的方式來學習設置「自動刷新頁面」的功能。於是乎挑選了 <code>Gulp.js + LiveReload</code> with <code>http-server</code> ，或是考慮使用 <code>gulp-connect</code>。</p>
+<ul>
+<li>Source Code: <a href="https://github.com/evenchange4/gulp-livereload" target="_blank" rel="external">https://github.com/evenchange4/gulp-livereload</a></li>
+</ul>
+<a id="more"></a>
+
+<h1 id="Knowledge_前置小作業">Knowledge 前置小作業</h1>
+<p>對於使用的工具名稱至少要有一認識，所以查了一下資料。</p>
+<ul>
+<li><a href="http://gulpjs.com/" target="_blank" rel="external">Gulp.js</a>: 看影片念做 <code>告Ｐ</code>，是一個自動化構建的工具。</li>
+<li><a href="http://gulpjs.com/" target="_blank" rel="external">Gulp.js</a> vs <a href="http://gruntjs.com/" target="_blank" rel="external">Grunt</a>: 最主要差在 Gulp 使用 node.js 的 Streams 來加速。</li>
+<li><a href="http://livereload.com/" target="_blank" rel="external">LiveReload 2</a>: Client 端的整合自動刷新利器。</li>
+<li>靜態網頁可以嗎？：不行，所以這裡使用 node 簡易的 http server “<a href="https://github.com/nodeapps/http-server" target="_blank" rel="external">http-server</a>“，後面會一併教大家如何使用。</li>
+<li><a href="https://github.com/avevlad/gulp-connect" target="_blank" rel="external">gulp-connent</a>: 把 webserver 跟 livereload 弄在一起的套件。</li>
+</ul>
+<h1 id="選擇使用_gulp-livereload_with_http-server">選擇使用 gulp-livereload with http-server</h1>
+<h2 id="第一步：Install_安裝">第一步：Install 安裝</h2>
+<p>Install Node Package， 這邊用 <code>npm</code> 來下載管理使用到的套件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo npm <span class="operator"><span class="keyword">install</span> gulp -g</span></div><div class="line">$ sudo npm <span class="keyword">install</span> http-<span class="keyword">server</span> -g</div></pre></td></tr></table></figure>
+
+<p>Install Chrome Extension，安裝 <a href="https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei" target="_blank" rel="external">Chrome Extension: LiveReload</a>，作為 client 端監控的插件。</p>
+<p><img src="http://media-cache-ak0.pinimg.com/originals/68/1d/3b/681d3be7a8e194b1b99f29c5eb98ec2a.jpg" alt="▲ Figure: Goolge Chrome Extension: LiveReload"></p>
+<h2 id="第二步：Config_前置作業與設定">第二步：Config 前置作業與設定</h2>
+<p>Managing module dependencies，讓後人執行可以一目了然：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>npm init</div><div class="line"><span class="variable">$ </span>sudo npm install gulp gulp-livereload --save-dev</div></pre></td></tr></table></figure>
+
+<p>Gulp Config，配置設定 Gulp，新增且編輯 <code>gulpfile.js</code>：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>),</div><div class="line">	livereload = <span class="built_in">require</span>(<span class="string">'gulp-livereload'</span>);</div><div class="line"></div><div class="line">gulp.task(<span class="string">'watch'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{  <span class="comment">// 'watch' 是 task 的名稱，可以任意定義名稱  </span></div><div class="line">	<span class="keyword">var</span> server = livereload();</div><div class="line"></div><div class="line">	</div><div class="line">    gulp.watch(<span class="string">'*.*'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(file)</span> </span>{	<span class="comment">// 監控的檔案，在這裏 '*.*' 我監控所有檔案</span></div><div class="line">        server.changed(file.path);</div><div class="line">    });</div><div class="line">});</div></pre></td></tr></table></figure>
+
+<h2 id="第三步：Quick_Start_執行">第三步：Quick Start 執行</h2>
+<p>運行 Run http-server，因為前面提到的，直接用瀏覽器開啟的檔案靜態網頁不支援，因此一定要有一個 http server，所以這邊用非常簡單 node 的 <code>http-server</code> 來運作：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ http-server</div><div class="line">Starting up http-server, serving ./ on port: <span class="number">8080</span></div><div class="line">Hit CTRL-C to <span class="keyword">stop</span> the server</div><div class="line"><span class="keyword">...</span></div></pre></td></tr></table></figure>
+
+<p>運行 Run gulp-livereload 執行 Gulp 監聽的 Task: </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ gulp watch</div><div class="line">[<span class="number">00</span>:<span class="number">22</span>:<span class="number">57</span>] Using gulpfile ~/code/node/livereload/gulpfile.js</div><div class="line">[<span class="number">00</span>:<span class="number">22</span>:<span class="number">57</span>] Starting <span class="string">'watch'</span><span class="keyword">...</span></div><div class="line">[<span class="number">00</span>:<span class="number">22</span>:<span class="number">57</span>] Finished <span class="string">'watch'</span> after <span class="number">7.41</span> ms</div><div class="line">[<span class="number">00</span>:<span class="number">23</span>:<span class="number">23</span>] index.html was reloaded.</div><div class="line">[<span class="number">00</span>:<span class="number">23</span>:<span class="number">23</span>] Live reload server listening on: <span class="number">35729</span></div></pre></td></tr></table></figure>
+
+<p>連接 Chrome-livereload，在 Chrome 瀏覽器連接起來，這邊第一次連可能會沒反應，多點幾次就好了，使得<code>圈圈變為實心</code>的：</p>
+<p><img src="http://media-cache-cd0.pinimg.com/originals/c6/84/7f/c6847f0f85412e6229563f5c556baf7d.jpg" alt="▲ Figure: Goolge Chrome Extension：必須要為實心圈圈"></p>
+<h1 id="選擇使用_gulp-connect">選擇使用 gulp-connect</h1>
+<p>因為 <code>gulp-connect</code> 這個 node 的套件已經將 webserver 整合在一起，所以不需要特別執行 http-server。程序同前面，我快速帶過。</p>
+<h2 id="第一步：Install_安裝-1">第一步：Install 安裝</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo npm <span class="operator"><span class="keyword">install</span> gulp-<span class="keyword">connect</span> <span class="comment">--save-dev</span></span></div></pre></td></tr></table></figure>
+
+<h2 id="第二步：Config_前置作業與設定-1">第二步：Config 前置作業與設定</h2>
+<p>將  <code>gulpfile.js</code> 編輯：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>),</div><div class="line">  connect = <span class="built_in">require</span>(<span class="string">'gulp-connect'</span>);</div><div class="line"></div><div class="line">gulp.task(<span class="string">'connect'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">  connect.server({</div><div class="line">    root: <span class="string">''</span>,</div><div class="line">    livereload: <span class="literal">true</span></div><div class="line">  });</div><div class="line">});</div><div class="line"></div><div class="line">gulp.task(<span class="string">'html'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</div><div class="line">  gulp.src(<span class="string">'*.html'</span>)</div><div class="line">    .pipe(connect.reload());</div><div class="line">});</div><div class="line"></div><div class="line">gulp.task(<span class="string">'watch'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>{</div><div class="line">  gulp.watch([<span class="string">'*.*'</span>], [<span class="string">'html'</span>]);</div><div class="line">});</div><div class="line"></div><div class="line">gulp.task(<span class="string">'default'</span>, [<span class="string">'connect'</span>, <span class="string">'watch'</span>]);</div></pre></td></tr></table></figure>
+
+<h2 id="第三步：Quick_Start_執行-1">第三步：Quick Start 執行</h2>
+<p>再來執行 <code>gulp</code> 即可：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$ gulp                                                          </div><div class="line">[<span class="number">03</span>:<span class="number">08</span>:<span class="number">42</span>] Using gulpfile ~/code/node/livereload/gulpfile.js</div><div class="line">[<span class="number">03</span>:<span class="number">08</span>:<span class="number">42</span>] Starting <span class="string">'connect'</span><span class="keyword">...</span></div><div class="line">[<span class="number">03</span>:<span class="number">08</span>:<span class="number">42</span>] Server started http://localhost:<span class="number">8080</span></div><div class="line">[<span class="number">03</span>:<span class="number">08</span>:<span class="number">42</span>] LiveReload started on port <span class="number">35729</span></div><div class="line">[<span class="number">03</span>:<span class="number">08</span>:<span class="number">42</span>] Finished <span class="string">'connect'</span> after <span class="number">18</span> ms</div><div class="line">[<span class="number">03</span>:<span class="number">08</span>:<span class="number">42</span>] Starting <span class="string">'watch'</span><span class="keyword">...</span></div><div class="line">[<span class="number">03</span>:<span class="number">08</span>:<span class="number">42</span>] Finished <span class="string">'watch'</span> after <span class="number">7.29</span> ms</div><div class="line">[<span class="number">03</span>:<span class="number">08</span>:<span class="number">42</span>] Starting <span class="string">'default'</span><span class="keyword">...</span></div><div class="line">[<span class="number">03</span>:<span class="number">08</span>:<span class="number">42</span>] Finished <span class="string">'default'</span> after <span class="number">7.06</span> μs</div></pre></td></tr></table></figure>
+
+<h2 id="Reference">Reference</h2>
+<ul>
+<li><a href="http://www.36ria.com/6373" target="_blank" rel="external">Gulp.js—比Grunt更易用的前端构建工具</a></li>
+<li><a href="https://www.youtube.com/watch?v=OKVE6wE9CW4" target="_blank" rel="external">使用gulp及livereload实时更新页面</a></li>
+<li><a href="http://angularjs.cn/A0xJ" target="_blank" rel="external">Gulp.js-livereload 不用F5了，实时自动刷新页面来开发</a></li>
+<li><a href="http://blog.wu-boy.com/2013/12/streaming-build-system-gulp/" target="_blank" rel="external">The streaming build system Gulp 比較</a></li>
+<li><a href="https://github.com/avevlad/gulp-connect#livereload" target="_blank" rel="external">gulp-connect config</a></li>
+</ul>
+
+        
+          <!-- Go to your Addthis.com Dashboard to update any options -->
+          <div class="addthis_native_toolbox" style="z-index: 1"></div>
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2014/06/11/gulp-livereload/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2014/06/11/gulp-livereload/" data-id="ppgmb56p2pxunis1" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2014/06/11/gulp-livereload/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gulp/">gulp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2014/06/11/gulp-livereload/" data-id="ppgmb56p2pxunis1" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2014/06/11/gulp-livereload/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gulp/">gulp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/06/20/github-pages-custom-domains/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          GitHub Pages Custom Domains
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/05/06/R-on-Linux/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Run R script from command line on Ubuntu</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/f2e/">F2E</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">PostgreSQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r/">R</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spa/">SPA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular-js/">angular.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp-js/">gulp.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/page/">page</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rails/">rails</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Michael Hsu<br>
+      <!-- Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> -->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://about.michaelhsu.tw/" class="mobile-nav-link">About</a>
+  
+    <a href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw" class="mobile-nav-link">Subscription</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'michaelhsutwblog';
+  
+  var disqus_url = 'http://michaelhsu.tw/2014/06/11/gulp-livereload/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

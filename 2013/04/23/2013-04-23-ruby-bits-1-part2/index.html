@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ruby bits (method 篇) | Michael Hsu.tw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目錄 (method 篇)
+
+OPTIONAL ARGUMENTS
+HASH ARGUMENTS
+“SPLAT” ARGUMENTS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ruby bits (method 篇)">
+<meta property="og:url" content="http://michaelhsu.tw/2013/04/23/2013-04-23-ruby-bits-1-part2/">
+<meta property="og:site_name" content="Michael Hsu.tw">
+<meta property="og:description" content="目錄 (method 篇)
+
+OPTIONAL ARGUMENTS
+HASH ARGUMENTS
+“SPLAT” ARGUMENTS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ruby bits (method 篇)">
+<meta name="twitter:description" content="目錄 (method 篇)
+
+OPTIONAL ARGUMENTS
+HASH ARGUMENTS
+“SPLAT” ARGUMENTS">
+<meta name="twitter:creator" content="@evenchange4">
+
+  
+    <link rel="alternative" href="http://feeds.feedburner.com/michael-hsu-tw" title="Michael Hsu.tw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33845990-9']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <!-- <header id="header"> -->
+  <!-- <div id="banner"></div> -->
+  <!-- <div id="header-outer" class="outer"> -->
+<!--     <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Michael Hsu.tw</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+        </h2>
+      
+    </div> -->
+
+
+
+  <!-- </div> -->
+<!-- </header> -->
+
+<header class="site-head" >
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://about.michaelhsu.tw/">About</a>
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw">Subscription</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="http://feeds.feedburner.com/michael-hsu-tw" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap" style="z-index:1">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://michaelhsu.tw"></form>
+      </div>
+    </div>
+    
+  <div class="vertical">
+    <div class="site-head-content inner">
+      <div id="header-title" class="inner">
+         
+          <a class="blog-logo" href="/">
+            <img src="http://www.gravatar.com/avatar/66799cbbe4d891ad4eca39b95119fe18?s=100" alt="Blog Logo"/>
+          </a> 
+        
+        <h1 id="logo-wrap">
+          <a href="/" id="logo">Michael Hsu.tw</a>
+        </h1>
+        
+          <h2 id="subtitle-wrap">
+            <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+          </h2>
+        
+      </div> 
+    </div>
+  </div> <!-- end vertical -->
+</header>
+      <div class="outer">
+        <section id="main"><!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-2013-04-23-ruby-bits-1-part2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ruby bits (method 篇)
+    </h1>
+  
+
+        <a href="/2013/04/23/2013-04-23-ruby-bits-1-part2/" class="article-date">
+  <time datetime="2013-04-22T20:24:47.000Z" itemprop="datePublished">April 23, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <div id="toc" class="toc-article">
+            <strong class="toc-title">Outline</strong>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目錄_(method_篇)"><span class="toc-number">1.</span> <span class="toc-text">目錄 (method 篇)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_OPTIONAL_ARGUMENTS_（給予參數初始值）"><span class="toc-number">2.</span> <span class="toc-text">1. OPTIONAL ARGUMENTS （給予參數初始值）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_HASH_ARGUMENTS（參數太長）"><span class="toc-number">3.</span> <span class="toc-text">2. HASH ARGUMENTS（參數太長）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#better"><span class="toc-number">3.1.</span> <span class="toc-text">better</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Keys_are_optional"><span class="toc-number">3.2.</span> <span class="toc-text">Keys are optional</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Complete_hash_is_optional"><span class="toc-number">3.3.</span> <span class="toc-text">Complete hash is optional</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#￼3-_“SPLAT”_ARGUMENTS"><span class="toc-number">4.</span> <span class="toc-text">￼3. “SPLAT” ARGUMENTS</span></a></li></ol>
+            </div>
+        
+
+        <h2 id="目錄_(method_篇)">目錄 (method 篇)</h2>
+<ol>
+<li>OPTIONAL ARGUMENTS</li>
+<li>HASH ARGUMENTS</li>
+<li>“SPLAT” ARGUMENTS</li>
+</ol>
+<a id="more"></a>
+
+<h2 id="1-_OPTIONAL_ARGUMENTS_（給予參數初始值）">1. OPTIONAL ARGUMENTS （給予參數初始值）</h2>
+<figure class="highlight Ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># bad</span></div><div class="line"><span class="function"><span class="keyword">def</span> </span>tweet(message, lat, long)</div><div class="line">  ...</div><div class="line"><span class="keyword">end</span></div><div class="line">tweet(<span class="string">"Practicing Ruby-Fu!"</span>, <span class="keyword">nil</span>, <span class="keyword">nil</span>)</div><div class="line"></div><div class="line"><span class="comment"># good</span></div><div class="line">deftweet(message,lat=<span class="keyword">nil</span> long=<span class="keyword">nil</span>)</div><div class="line">  ...</div><div class="line"><span class="keyword">end</span></div><div class="line">tweet(<span class="string">"Practicing Ruby-Fu!"</span>)</div></pre></td></tr></table></figure>
+
+<h2 id="2-_HASH_ARGUMENTS（參數太長）">2. HASH ARGUMENTS（參數太長）</h2>
+<figure class="highlight Ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>tweet(message, options = {})</div><div class="line">  status = <span class="constant">Status</span>.new</div><div class="line">  status.lat = options[<span class="symbol">:lat</span>]</div><div class="line">  status.long = options[<span class="symbol">:long</span>]</div><div class="line">  status.body = message</div><div class="line">  status.reply_id = options[<span class="symbol">:reply_id</span>]</div><div class="line">  status.post</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">tweet(<span class="string">"Practicing Ruby-Fu!"</span>,</div><div class="line">  <span class="symbol">:lat</span> =&gt; <span class="number">28.55</span>,</div><div class="line">  <span class="symbol">:long</span> =&gt; -<span class="number">81.33</span>,</div><div class="line">  <span class="symbol">:reply_id</span> =&gt; <span class="number">227946</span></div><div class="line">)</div></pre></td></tr></table></figure>
+
+<h3 id="better">better</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">tweet(<span class="string">"Practicing Ruby-Fu!"</span>,</div><div class="line">  <span class="symbol">lat:</span> <span class="number">28.55</span>,</div><div class="line">  <span class="symbol">long:</span> -<span class="number">81.33</span>,</div><div class="line">  <span class="symbol">reply_id:</span> <span class="number">227946</span></div><div class="line">)</div></pre></td></tr></table></figure>
+
+<h3 id="Keys_are_optional">Keys are optional</h3>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tweet(<span class="string">"Practicing Ruby-Fu!"</span>,</div><div class="line">  <span class="symbol">lat:</span> <span class="number">28.55</span>,</div><div class="line">)</div></pre></td></tr></table></figure>
+
+<h3 id="Complete_hash_is_optional">Complete hash is optional</h3>
+<figure class="highlight Ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tweet(<span class="string">"Practicing Ruby-Fu!"</span>)</div></pre></td></tr></table></figure>
+
+<h2 id="￼3-_“SPLAT”_ARGUMENTS">￼3. “SPLAT” ARGUMENTS</h2>
+<figure class="highlight Ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>mention(status, *names)</div><div class="line">  tweet(<span class="string">"<span class="subst">#{names.join(<span class="string">' '</span>)}</span> <span class="subst">#{status}</span>"</span>)</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">mention(<span class="string">'Your courses rocked!'</span>, <span class="string">'eallam'</span>, <span class="string">'greggpollack'</span>, <span class="string">'jasonvanlue'</span>)</div><div class="line"><span class="output"><span class="status">=&gt;</span> eallam greggpollack jasonvanlue <span class="constant">Your</span> courses rocked!</span></div></pre></td></tr></table></figure>
+
+
+        
+          <!-- Go to your Addthis.com Dashboard to update any options -->
+          <div class="addthis_native_toolbox" style="z-index: 1"></div>
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/04/23/2013-04-23-ruby-bits-1-part2/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/04/23/2013-04-23-ruby-bits-1-part2/" data-id="bhdtmsk32bbrgw0e" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/04/23/2013-04-23-ruby-bits-1-part2/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/04/23/2013-04-23-ruby-bits-1-part2/" data-id="bhdtmsk32bbrgw0e" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/04/23/2013-04-23-ruby-bits-1-part2/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/04/23/2013-04-23-ruby-bits-1-part5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Ruby bits (block 篇)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/04/23/2013-04-23-ruby-bits-1-part4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Ruby bits (module 篇)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/f2e/">F2E</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">PostgreSQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r/">R</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spa/">SPA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular-js/">angular.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp-js/">gulp.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/page/">page</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rails/">rails</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Michael Hsu<br>
+      <!-- Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> -->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://about.michaelhsu.tw/" class="mobile-nav-link">About</a>
+  
+    <a href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw" class="mobile-nav-link">Subscription</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'michaelhsutwblog';
+  
+  var disqus_url = 'http://michaelhsu.tw/2013/04/23/2013-04-23-ruby-bits-1-part2/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

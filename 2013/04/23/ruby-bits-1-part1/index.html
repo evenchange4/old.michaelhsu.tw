@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ruby bits | Michael Hsu.tw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目錄
+
+if、Unless
+nil 
+給予初始值
+RETURN VALUES
+symbol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ruby bits">
+<meta property="og:url" content="http://michaelhsu.tw/2013/04/23/ruby-bits-1-part1/">
+<meta property="og:site_name" content="Michael Hsu.tw">
+<meta property="og:description" content="目錄
+
+if、Unless
+nil 
+給予初始值
+RETURN VALUES
+symbol">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ruby bits">
+<meta name="twitter:description" content="目錄
+
+if、Unless
+nil 
+給予初始值
+RETURN VALUES
+symbol">
+<meta name="twitter:creator" content="@evenchange4">
+
+  
+    <link rel="alternative" href="http://feeds.feedburner.com/michael-hsu-tw" title="Michael Hsu.tw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33845990-9']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <!-- <header id="header"> -->
+  <!-- <div id="banner"></div> -->
+  <!-- <div id="header-outer" class="outer"> -->
+<!--     <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Michael Hsu.tw</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+        </h2>
+      
+    </div> -->
+
+
+
+  <!-- </div> -->
+<!-- </header> -->
+
+<header class="site-head" >
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://about.michaelhsu.tw/">About</a>
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw">Subscription</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="http://feeds.feedburner.com/michael-hsu-tw" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap" style="z-index:1">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://michaelhsu.tw"></form>
+      </div>
+    </div>
+    
+  <div class="vertical">
+    <div class="site-head-content inner">
+      <div id="header-title" class="inner">
+         
+          <a class="blog-logo" href="/">
+            <img src="http://www.gravatar.com/avatar/66799cbbe4d891ad4eca39b95119fe18?s=100" alt="Blog Logo"/>
+          </a> 
+        
+        <h1 id="logo-wrap">
+          <a href="/" id="logo">Michael Hsu.tw</a>
+        </h1>
+        
+          <h2 id="subtitle-wrap">
+            <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+          </h2>
+        
+      </div> 
+    </div>
+  </div> <!-- end vertical -->
+</header>
+      <div class="outer">
+        <section id="main"><!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-ruby-bits-1-part1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ruby bits
+    </h1>
+  
+
+        <a href="/2013/04/23/ruby-bits-1-part1/" class="article-date">
+  <time datetime="2013-04-22T19:43:06.000Z" itemprop="datePublished">April 23, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <div id="toc" class="toc-article">
+            <strong class="toc-title">Outline</strong>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目錄"><span class="toc-number">1.</span> <span class="toc-text">目錄</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_Unless_更直覺"><span class="toc-number">2.</span> <span class="toc-text">1. Unless 更直覺</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一行表達_if"><span class="toc-number">2.1.</span> <span class="toc-text">一行表達 if</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_nil_treated_as_false"><span class="toc-number">3.</span> <span class="toc-text">2. nil treated as false</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#￼3-_給予初始值_-_“OR”"><span class="toc-number">4.</span> <span class="toc-text">￼3. 給予初始值 - “OR”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-_RETURN_VALUES"><span class="toc-number">5.</span> <span class="toc-text">4. RETURN VALUES</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-_Symbol"><span class="toc-number">6.</span> <span class="toc-text">5. Symbol</span></a></li></ol>
+            </div>
+        
+
+        <h2 id="目錄">目錄</h2>
+<ol>
+<li>if、Unless</li>
+<li>nil </li>
+<li>給予初始值</li>
+<li>RETURN VALUES</li>
+<li>symbol</li>
+</ol>
+<a id="more"></a>
+
+<h2 id="1-_Unless_更直覺">1. Unless 更直覺</h2>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># bad</span></div><div class="line"><span class="keyword">if</span> ! tweets.empty?</div><div class="line">  puts <span class="string">"Timeline:"</span></div><div class="line">  puts tweets</div><div class="line"><span class="keyword">end</span></div><div class="line">￼￼</div><div class="line"><span class="comment"># good</span></div><div class="line"><span class="keyword">unless</span> tweets.empty?</div><div class="line">  puts <span class="string">"Timeline:"</span></div><div class="line">  puts tweets</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<h3 id="一行表達_if">一行表達 if</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">puts pin_number == pin ? <span class="string">"Balance: $<span class="subst">#{<span class="variable">@balance</span>}</span>."</span> <span class="symbol">:</span> pin_error</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> pin_number == pin</div><div class="line">  puts <span class="string">"Balance: $<span class="subst">#{<span class="variable">@balance</span>}</span>."</span></div><div class="line"><span class="keyword">else</span></div><div class="line">  puts pin_error</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<h2 id="2-_nil_treated_as_false">2. nil treated as <code>false</code></h2>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># bad</span></div><div class="line"><span class="keyword">if</span> attachment.file_path != <span class="keyword">nil</span></div><div class="line">  attachment.post</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment"># good</span></div><div class="line"><span class="keyword">if</span> attachment.file_path</div><div class="line">  attachment.post</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<h2 id="￼3-_給予初始值_-_“OR”">￼3. 給予初始值 - “OR”</h2>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tweets = timeline.tweets || []</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">result = <span class="keyword">nil</span> || <span class="number">1</span>      <span class="comment"># =&gt;1</span></div><div class="line">result =   <span class="number">1</span> || <span class="keyword">nil</span>    <span class="comment"># =&gt;1</span></div><div class="line">result =   <span class="number">1</span> || <span class="number">2</span>      <span class="comment"># =&gt;1</span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">result2 = <span class="keyword">nil</span> || <span class="number">1</span>     <span class="comment"># =&gt;1</span></div><div class="line">等價於</div><div class="line">result2 ||= <span class="number">1</span>          <span class="comment"># =&gt;1</span></div></pre></td></tr></table></figure>
+
+<p><em>但是 if else 比較易讀</em></p>
+<h2 id="4-_RETURN_VALUES">4. RETURN VALUES</h2>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># bad</span></div><div class="line"><span class="function"><span class="keyword">def</span> </span>list_url(user_name, list_name)</div><div class="line">  <span class="keyword">if</span> list_name</div><div class="line">    url = <span class="string">"https://twitter.com/<span class="subst">#{user_name}</span>/<span class="subst">#{list_name}</span>"</span> </div><div class="line">  <span class="keyword">else</span></div><div class="line">    url = <span class="string">"https://twitter.com/<span class="subst">#{user_name}</span>"</span> </div><div class="line">  <span class="keyword">end</span></div><div class="line">  url</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment"># good</span></div><div class="line"><span class="function"><span class="keyword">def</span> </span>list_url(user_name, list_name)</div><div class="line">  <span class="keyword">if</span> list_name</div><div class="line">    <span class="string">"https://twitter.com/<span class="subst">#{user_name}</span>/<span class="subst">#{list_name}</span>"</span></div><div class="line">  <span class="keyword">else</span></div><div class="line">    <span class="string">"https://twitter.com/<span class="subst">#{user_name}</span>"</span></div><div class="line">  <span class="keyword">end</span> </div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<h2 id="5-_Symbol">5. Symbol</h2>
+<p>string 與 symbol 轉換</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="string">"a"</span>.to_sym</div><div class="line"><span class="output"><span class="status">=&gt;</span> <span class="symbol">:a</span></span></div><div class="line"></div><div class="line"><span class="string">"a"</span>.intern</div><div class="line"><span class="output"><span class="status">=&gt;</span> <span class="symbol">:a</span></span></div><div class="line"></div><div class="line"><span class="symbol">:a</span>.to_s</div><div class="line"><span class="output"><span class="status">=&gt;</span> <span class="string">"a"</span></span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">:hello</span>.is_a? <span class="constant">Symbol</span></div><div class="line"><span class="output"><span class="status">=&gt;</span> true</span></div></pre></td></tr></table></figure>
+
+
+        
+          <!-- Go to your Addthis.com Dashboard to update any options -->
+          <div class="addthis_native_toolbox" style="z-index: 1"></div>
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/04/23/ruby-bits-1-part1/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/04/23/ruby-bits-1-part1/" data-id="sh0rihhjrq3e03g2" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/04/23/ruby-bits-1-part1/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/04/23/ruby-bits-1-part1/" data-id="sh0rihhjrq3e03g2" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/04/23/ruby-bits-1-part1/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruby/">ruby</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/04/23/2013-04-23-ruby-bits-1-part3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Ruby bits (class 篇)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/04/21/2013-04-21-try-r-learning/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">try R learning</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/f2e/">F2E</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">PostgreSQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r/">R</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spa/">SPA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular-js/">angular.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp-js/">gulp.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/page/">page</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rails/">rails</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Michael Hsu<br>
+      <!-- Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> -->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://about.michaelhsu.tw/" class="mobile-nav-link">About</a>
+  
+    <a href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw" class="mobile-nav-link">Subscription</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'michaelhsutwblog';
+  
+  var disqus_url = 'http://michaelhsu.tw/2013/04/23/ruby-bits-1-part1/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

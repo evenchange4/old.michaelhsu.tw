@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>RHadoop 實作推薦系統 | Michael Hsu.tw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="簡介
+
+課程： 101-2 NTU cloud computing special project
+Proposal title: Large-scale big data mining in cloud system 
+Progress Report
+source code: github.com/evenchange4/CCSP
+datasets: movielen_dataset.csv (">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RHadoop 實作推薦系統">
+<meta property="og:url" content="http://michaelhsu.tw/2013/06/21/rhadoop-實作推薦系統/">
+<meta property="og:site_name" content="Michael Hsu.tw">
+<meta property="og:description" content="簡介
+
+課程： 101-2 NTU cloud computing special project
+Proposal title: Large-scale big data mining in cloud system 
+Progress Report
+source code: github.com/evenchange4/CCSP
+datasets: movielen_dataset.csv (">
+<meta property="og:image" content="http://oytunyuksel.com/wp-content/uploads/post-02-01.jpg">
+<meta property="og:image" content="http://cos.name/wp-content/uploads/2013/04/alogrithm_1.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RHadoop 實作推薦系統">
+<meta name="twitter:description" content="簡介
+
+課程： 101-2 NTU cloud computing special project
+Proposal title: Large-scale big data mining in cloud system 
+Progress Report
+source code: github.com/evenchange4/CCSP
+datasets: movielen_dataset.csv (">
+<meta name="twitter:creator" content="@evenchange4">
+
+  
+    <link rel="alternative" href="http://feeds.feedburner.com/michael-hsu-tw" title="Michael Hsu.tw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33845990-9']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <!-- <header id="header"> -->
+  <!-- <div id="banner"></div> -->
+  <!-- <div id="header-outer" class="outer"> -->
+<!--     <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Michael Hsu.tw</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+        </h2>
+      
+    </div> -->
+
+
+
+  <!-- </div> -->
+<!-- </header> -->
+
+<header class="site-head" >
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <!-- <a id="main-nav-toggle" class="nav-icon"></a> -->
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://about.michaelhsu.tw/">About</a>
+        
+          <a class="main-nav-link nav-icon" style="width: 70px;" href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw">Subscription</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="http://feeds.feedburner.com/michael-hsu-tw" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap" style="z-index:1">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://michaelhsu.tw"></form>
+      </div>
+    </div>
+    
+  <div class="vertical">
+    <div class="site-head-content inner">
+      <div id="header-title" class="inner">
+         
+          <a class="blog-logo" href="/">
+            <img src="http://www.gravatar.com/avatar/66799cbbe4d891ad4eca39b95119fe18?s=100" alt="Blog Logo"/>
+          </a> 
+        
+        <h1 id="logo-wrap">
+          <a href="/" id="logo">Michael Hsu.tw</a>
+        </h1>
+        
+          <h2 id="subtitle-wrap">
+            <a href="/" id="subtitle">Try to Keep everything in Mind</a>
+          </h2>
+        
+      </div> 
+    </div>
+  </div> <!-- end vertical -->
+</header>
+      <div class="outer">
+        <section id="main"><!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+     pubid: "ra-539897a6557cac2a"
+}
+</script>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js"></script>
+<!-- ADDTHIS BUTTON END -->
+
+<article id="post-rhadoop-實作推薦系統" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RHadoop 實作推薦系統
+    </h1>
+  
+
+        <a href="/2013/06/21/rhadoop-實作推薦系統/" class="article-date">
+  <time datetime="2013-06-21T04:37:11.000Z" itemprop="datePublished">June 21, 2013</time>
+</a>
+        <br>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+          <div id="toc" class="toc-article">
+            <strong class="toc-title">Outline</strong>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#簡介"><span class="toc-number">1.</span> <span class="toc-text">簡介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工具"><span class="toc-number">2.</span> <span class="toc-text">工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#演算法與實作"><span class="toc-number">3.</span> <span class="toc-text">演算法與實作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Data_preprocess"><span class="toc-number">4.</span> <span class="toc-text">Data preprocess</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Result"><span class="toc-number">5.</span> <span class="toc-text">Result</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">6.</span> <span class="toc-text">Reference</span></a></li></ol>
+            </div>
+        
+
+        <h2 id="簡介">簡介</h2>
+<ul>
+<li>課程： <a href="https://sites.google.com/site/cloudcomputingspecialproject/101-2-progress-report" target="_blank" rel="external">101-2 NTU cloud computing special project</a></li>
+<li>Proposal title: <a href="https://docs.google.com/viewer?a=v&amp;pid=sites&amp;srcid=ZGVmYXVsdGRvbWFpbnxjbG91ZGNvbXB1dGluZ3NwZWNpYWxwcm9qZWN0fGd4OjQxMzkxMWI2YmI2NTI4NjM" target="_blank" rel="external">Large-scale big data mining in cloud system</a> </li>
+<li><a href="https://docs.google.com/document/d/1RHhWToolQXbNJhZx61RizXGwNfkccZS6ZmqvoLiGe4I/edit#" target="_blank" rel="external">Progress Report</a></li>
+<li>source code: <a href="https://github.com/evenchange4/CCSP" target="_blank" rel="external">github.com/evenchange4/CCSP</a></li>
+<li>datasets: <a href="https://drive.google.com/folderview?id=0B41WBNgHd5hjTE5KcmN0b0F5SjA&amp;usp=sharing" target="_blank" rel="external">movielen_dataset.csv (123Mb, preprocessed) </a></li>
+<li>使用整合 R 與 Hadoop 的 package RHadoop (rmr2) 來實作 item-base 的推薦系統。</li>
+<li><img src="http://oytunyuksel.com/wp-content/uploads/post-02-01.jpg" alt="讓小丸子來教你 from oytunyuksel"></li>
+</ul>
+<a id="more"></a>
+
+<h2 id="工具">工具</h2>
+<ul>
+<li>RHadoop rmr2</li>
+<li>演算法: Collaborative Filtering 協同過濾 (item-based)</li>
+<li>安裝 Haddop 參考: <a href="http://michaelhsu.tw/2013/04/21/hadoop-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AE%89%E8%A3%9D%E5%B0%B1%E4%B8%8A%E6%89%8B-cdh3/" target="_blank" rel="external">Hadoop 第一次安裝就上手 CDH3</a></li>
+<li>使用 Rhadoop 參考: <a href="http://michaelhsu.tw/2013/05/01/r-and-hadoop-%E5%88%9D%E9%AB%94%E9%A9%97/" target="_blank" rel="external">R and Hadoop 整合初體驗</a></li>
+</ul>
+<h2 id="演算法與實作">演算法與實作</h2>
+<ul>
+<li>本演算法參考 <a href="http://blog.fens.me/rhadoop-mapreduce-rmr/" target="_blank" rel="external">粉丝日志 RHadoop实践系列</a> 來實作，特別感謝有這種中文的教學文章。</li>
+<li>推薦結果 = 伴隨矩陣 (co-occurrence matrix) * 評分矩陣（score matrix）</li>
+<li><img src="http://cos.name/wp-content/uploads/2013/04/alogrithm_1.jpg" alt="演算法概念 from Mahout In Action"></li>
+<li>map-reduce 實作步驟：<ol>
+<li>建立 item’s co-occurrence matrix，然後算出 frequence</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">train.mr&lt;-mapreduce(</div><div class="line">	train.hdfs, </div><div class="line">	map = function(k, v) {</div><div class="line">		keyval(k,v$item)</div><div class="line">	},</div><div class="line">	reduce = function(k,v){</div><div class="line">		m&lt;-merge(v,v)</div><div class="line">		keyval(m$x,m$y)</div><div class="line">	}</div><div class="line">)</div><div class="line">step2.mr&lt;-mapreduce(</div><div class="line">	train.mr,</div><div class="line">	map = function(k, v) {</div><div class="line">		d&lt;-data.frame(k,v)</div><div class="line">		d2&lt;-ddply(d,.(k,v),count)</div><div class="line"></div><div class="line">		key&lt;-d2$k</div><div class="line">		val&lt;-d2</div><div class="line">		keyval(key,val)</div><div class="line">	}</div><div class="line">)</div></pre></td></tr></table></figure>
+
+<pre><code><span class="number">2</span>. 建立 <span class="literal">user</span>'s 評分矩陣
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">train2.mr&lt;-mapreduce(</div><div class="line">	train.hdfs, </div><div class="line">	map = <span class="function"><span class="keyword">function</span><span class="params">(k, v)</span> </span>{</div><div class="line">		<span class="comment">#df&lt;-v[which(v$user==3),]</span></div><div class="line">		df&lt;-v</div><div class="line">		key&lt;-df<span class="variable">$item</span></div><div class="line">		val&lt;-data.frame(item=df<span class="variable">$item</span>,user=df<span class="variable">$user</span>,pref=df<span class="variable">$pref</span>)</div><div class="line">		keyval(key,val)</div><div class="line">	}</div><div class="line">)</div></pre></td></tr></table></figure>
+
+<pre><code><span class="number">3.</span> equijoin co-occurrence <span class="built_in">matrix</span> <span class="built_in">and</span> score <span class="built_in">matrix</span>
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">eq.hdfs&lt;-equijoin(</div><div class="line">	<span class="keyword">left</span>.<span class="built_in">input</span>=step2.mr, </div><div class="line">	<span class="keyword">right</span>.<span class="built_in">input</span>=train2.mr,</div><div class="line"></div><div class="line">	<span class="built_in">map</span>.<span class="keyword">left</span>=<span class="function"><span class="keyword">function</span><span class="params">(k,v)</span>{</span></div><div class="line">		keyval(<span class="keyword">k</span>,<span class="keyword">v</span>)</div><div class="line">	},</div><div class="line">	<span class="built_in">map</span>.<span class="keyword">right</span>=<span class="function"><span class="keyword">function</span><span class="params">(k,v)</span>{</span></div><div class="line">		keyval(<span class="keyword">k</span>,<span class="keyword">v</span>)</div><div class="line">	},</div><div class="line">	outer = <span class="keyword">c</span>(<span class="string">"left"</span>)</div><div class="line">)</div></pre></td></tr></table></figure>
+
+<pre><code><span class="bullet">4. </span>計算推薦的結果
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">cal.mr&lt;-mapreduce(</div><div class="line">	input=eq.hdfs,</div><div class="line">	map=<span class="function"><span class="keyword">function</span><span class="params">(k,v)</span></span>{</div><div class="line">		val&lt;-v</div><div class="line">		na&lt;-is.na(v<span class="variable">$user</span>.r)</div><div class="line">		<span class="keyword">if</span>(length(which(na))&gt;<span class="number">0</span>) val&lt;-v[-which(is.na(v<span class="variable">$user</span>.r)),]</div><div class="line">		keyval(val<span class="variable">$k</span>.l,val)</div><div class="line">	},</div><div class="line">	reduce=<span class="function"><span class="keyword">function</span><span class="params">(k,v)</span></span>{</div><div class="line">		val&lt;-ddply(v,.(k.l,v.l,user.r),summarize,v=freq.l*pref.r)</div><div class="line">		keyval(val<span class="variable">$k</span>.l,val)</div><div class="line">	}</div><div class="line">)</div></pre></td></tr></table></figure>
+
+<pre><code><span class="number">5</span>. output <span class="keyword">list</span> <span class="built_in">and</span> score
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="literal">result</span>.mr&lt;-mapreduce(</div><div class="line">	input=cal.mr,</div><div class="line">	map=function(k,v){</div><div class="line">		keyval(v$user.r,v)</div><div class="line">	},</div><div class="line">	reduce=function(k,v){</div><div class="line">		val&lt;-ddply(v,.(user.r,v.l),summarize,v=sum(v))</div><div class="line">		val2&lt;-val[order(val$v,decreasing=<span class="type">TRUE</span>),]</div><div class="line">		names(val2)&lt;-c(<span class="string">"user"</span>,<span class="string">"item"</span>,<span class="string">"pref"</span>)</div><div class="line">		keyval(val2$user,val2)</div><div class="line">	}</div><div class="line">)</div></pre></td></tr></table></figure>
+
+<pre><code><span class="number">6</span>. <span class="literal">result</span>
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span>.dfs(<span class="literal">result</span>.mr)</div></pre></td></tr></table></figure>
+
+<h2 id="Data_preprocess">Data preprocess</h2>
+<ul>
+<li>input: csv file (user,item,rating ex: <code>1,101,5.0</code>)</li>
+<li>實際資料：<a href="http://www.grouplens.org/node/12" target="_blank" rel="external">MovieLens Data Sets</a><ul>
+<li>GroupLens Research has collected and made available rating data sets from the MovieLens web site (<a href="http://movielens.umn.edu" target="_blank" rel="external">http://movielens.umn.edu</a>). The data sets were collected over various periods of time, depending on the size of the set.</li>
+<li><a href="http://www.grouplens.org/sites/www.grouplens.org/external_files/data/ml-10m.zip" target="_blank" rel="external">origin data sets MovieLens 10M</a> - Consists of 10 million ratings and 100,000 tag applications applied to 10,000 movies by 72,000 users.</li>
+<li>MovieID index file</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span><span class="symbol">:</span><span class="symbol">:Toy</span> <span class="constant">Story </span>(<span class="number">1995</span>)<span class="symbol">:</span><span class="symbol">:Adventure|Animation|Children|Comedy|Fantasy</span></div><div class="line"><span class="number">2</span><span class="symbol">:</span><span class="symbol">:Jumanji</span> (<span class="number">1995</span>)<span class="symbol">:</span><span class="symbol">:Adventure|Children|Fantasy</span></div><div class="line"><span class="number">3</span><span class="symbol">:</span><span class="symbol">:Grumpier</span> <span class="constant">Old Men </span>(<span class="number">1995</span>)<span class="symbol">:</span><span class="symbol">:Comedy|Romance</span></div><div class="line"><span class="number">4</span><span class="symbol">:</span><span class="symbol">:Waiting</span> to <span class="constant">Exhale </span>(<span class="number">1995</span>)<span class="symbol">:</span><span class="symbol">:Comedy|Drama|Romance</span></div><div class="line">...</div></pre></td></tr></table></figure>
+
+<ul>
+<li>format convert: <ul>
+<li>原始格式：<code>UserID::MovieID::Rating::Timestamp</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1<span class="pseudo">::122</span><span class="pseudo">::5</span><span class="pseudo">::838985046</span></div><div class="line">1<span class="pseudo">::185</span><span class="pseudo">::5</span><span class="pseudo">::838983525</span></div><div class="line">1<span class="pseudo">::231</span><span class="pseudo">::5</span><span class="pseudo">::838983392</span></div><div class="line">1<span class="pseudo">::292</span><span class="pseudo">::5</span><span class="pseudo">::838983421</span></div><div class="line">...</div></pre></td></tr></table></figure>
+
+<pre><code><span class="bullet">- </span>轉換格式：<span class="code">`UserID,MovieID,Rating`</span> save as <span class="code">`movielen_dataset.csv`</span>
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">f = File.<span class="built_in">open</span>(<span class="string">"movielen_dataset.csv"</span>, <span class="string">"w"</span>)</div><div class="line">File.<span class="built_in">open</span>(<span class="string">"ratings.dat"</span>).<span class="keyword">each</span> <span class="built_in">do</span> |l|</div><div class="line">	temp = l.<span class="built_in">split</span>(<span class="string">"::"</span>)</div><div class="line">	userID  = temp[<span class="number">0</span>]</div><div class="line">	movieID = temp[<span class="number">1</span>]</div><div class="line">	rating  = temp[<span class="number">2</span>]</div><div class="line">	f &lt;&lt; <span class="string">"#{userID},#{movieID},#{rating}\n"</span></div><div class="line"><span class="function"><span class="keyword">end</span></span></div><div class="line">f.<span class="built_in">close</span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>,<span class="number">122</span>,<span class="number">5</span></div><div class="line"><span class="number">1</span>,<span class="number">185</span>,<span class="number">5</span></div><div class="line"><span class="number">1</span>,<span class="number">231</span>,<span class="number">5</span></div><div class="line"><span class="number">1</span>,<span class="number">292</span>,<span class="number">5</span></div><div class="line"><span class="keyword">...</span></div></pre></td></tr></table></figure>
+
+<h2 id="Result">Result</h2>
+<p>…待補，vm localhost hdfs 跑好久</p>
+<p><code>failed Reduce Tasks exceeded allowed limit</code></p>
+<h2 id="Reference">Reference</h2>
+<ul>
+<li><a href="http://blog.fens.me/rhadoop-mapreduce-rmr/" target="_blank" rel="external">粉丝日志 RHadoop实践系列</a></li>
+<li><a href="http://manning.com/owen/" target="_blank" rel="external">Mahout In Action</a></li>
+<li><a href="http://michaelhsu.tw/2013/04/21/hadoop-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AE%89%E8%A3%9D%E5%B0%B1%E4%B8%8A%E6%89%8B-cdh3/" target="_blank" rel="external">Hadoop 第一次安裝就上手 CDH3</a></li>
+<li><a href="http://michaelhsu.tw/2013/05/01/r-and-hadoop-%E5%88%9D%E9%AB%94%E9%A9%97/" target="_blank" rel="external">R and Hadoop 整合初體驗</a></li>
+</ul>
+
+        
+          <!-- Go to your Addthis.com Dashboard to update any options -->
+          <div class="addthis_native_toolbox" style="z-index: 1"></div>
+        
+      
+    </div>
+    
+    <div class="article-footer">      
+      <a class="article-date" href="/2013/06/21/rhadoop-實作推薦系統/" target="_blank" itemprop="url"> Read on</a>
+      
+        <a data-url="http://michaelhsu.tw/2013/06/21/rhadoop-實作推薦系統/" data-id="jkxoyr82tmtu13pp" class="article-share-link">Share</a>
+        <a href="http://michaelhsu.tw/2013/06/21/rhadoop-實作推薦系統/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/r/">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
+
+    </div>
+<!--     <footer class="article-footer">
+      <a data-url="http://michaelhsu.tw/2013/06/21/rhadoop-實作推薦系統/" data-id="jkxoyr82tmtu13pp" class="article-share-link">Share</a>
+      
+        <a href="http://michaelhsu.tw/2013/06/21/rhadoop-實作推薦系統/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/r/">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li></ul>
+
+    </footer> -->
+
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/06/25/捷運站經緯度坐標-open-data/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          捷運站經緯度坐標 Open data
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/05/14/open-source-list/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Open Source list</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+    <aside id="sidebar" class="outer">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/f2e/">F2E</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">Heroku</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">PostgreSQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r/">R</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spa/">SPA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular-js/">angular.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp-js/">gulp.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/page/">page</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/passenger/">passenger</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rails/">rails</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby/">ruby</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmware/">vmware</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 Michael Hsu<br>
+      <!-- Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> -->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://about.michaelhsu.tw/" class="mobile-nav-link">About</a>
+  
+    <a href="http://feedburner.google.com/fb/a/mailverify?uri=michael-hsu-tw" class="mobile-nav-link">Subscription</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'michaelhsutwblog';
+  
+  var disqus_url = 'http://michaelhsu.tw/2013/06/21/rhadoop-實作推薦系統/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//go.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
