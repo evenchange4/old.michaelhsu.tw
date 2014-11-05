@@ -4,13 +4,55 @@
   <subtitle><![CDATA[Try to Keep everything in Mind]]></subtitle>
   <link href="http://michaelhsu.tw/atom.xml" rel="self"/>
   <link href="http://michaelhsu.tw"/>
-  <updated>2014-10-20T07:29:11.716Z</updated>
+  <updated>2014-11-05T13:39:52.367Z</updated>
   <id>http://michaelhsu.tw/</id>
   <author>
     <name><![CDATA[Michael Hsu]]></name>
     <email><![CDATA[evenchange4@gmail.com]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[React Flux 導讀]]></title>
+    <link href="http://michaelhsu.tw/2014/11/05/react-flux/"/>
+    <id>http://michaelhsu.tw/2014/11/05/react-flux/</id>
+    <published>2014-11-05T13:32:10.000Z</published>
+    <updated>2014-11-05T13:38:31.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="簡介">簡介</h2>
+<p>最近看到社群很活躍討論的新的前端話題，花了一些時間看了文件，有機會在 <strong>椒鹽分享小聚</strong> 中跟大家分享我的讀書心得。</p>
+<h2 id="Slides">Slides</h2>
+<iframe src="//slides.com/evenchange4/react-flux-intro/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe>
+
+<a id="more"></a>
+
+<h2 id="Reference">Reference</h2>
+<ul>
+<li><a href="http://www.slideshare.net/AndrewHull/react-js-and-why-its-awesome?qid=cc3c82e2-7cee-4bed-9eb9-c341e06698c6&amp;v=qf1&amp;b=&amp;from_search=1" target="_blank" rel="external">http://www.slideshare.net/AndrewHull/react-js-and-why-its-awesome?qid=cc3c82e2-7cee-4bed-9eb9-c341e06698c6&amp;v=qf1&amp;b=&amp;from_search=1</a></li>
+<li><a href="http://www.slideshare.net/floydophone/react-preso-v2" target="_blank" rel="external">http://www.slideshare.net/floydophone/react-preso-v2</a></li>
+<li><a href="http://ithelp.ithome.com.tw/question/10157402" target="_blank" rel="external">http://ithelp.ithome.com.tw/question/10157402</a></li>
+<li><a href="https://www.youtube.com/watch?v=fHLqSWdDrpA" target="_blank" rel="external">https://www.youtube.com/watch?v=fHLqSWdDrpA</a></li>
+<li><a href="http://2014.jsdc.tw/talks/jeremy.pdf" target="_blank" rel="external">http://2014.jsdc.tw/talks/jeremy.pdf</a></li>
+<li><a href="https://docs.angularjs.org/guide/scope" target="_blank" rel="external">https://docs.angularjs.org/guide/scope</a></li>
+<li><a href="http://andyyou.logdown.com/posts/234130-reactjs-reactjs-decrypt" target="_blank" rel="external">http://andyyou.logdown.com/posts/234130-reactjs-reactjs-decrypt</a></li>
+<li><a href="https://gist.github.com/coodoo/61e517afb1cd08b08574" target="_blank" rel="external">https://gist.github.com/coodoo/61e517afb1cd08b08574</a></li>
+<li><a href="http://blog.andrewray.me/reactjs-for-stupid-people/" target="_blank" rel="external">http://blog.andrewray.me/reactjs-for-stupid-people/</a></li>
+<li><a href="http://fluxxor.com/what-is-flux.html" target="_blank" rel="external">http://fluxxor.com/what-is-flux.html</a></li>
+<li><a href="http://facebook.github.io/flux/docs/overview.html#content" target="_blank" rel="external">http://facebook.github.io/flux/docs/overview.html#content</a></li>
+<li><a href="http://blog.andrewray.me/reactjs-for-stupid-people/" target="_blank" rel="external">http://blog.andrewray.me/reactjs-for-stupid-people/</a></li>
+<li><a href="http://code.tutsplus.com/tutorials/intro-to-the-react-framework--net-35660" target="_blank" rel="external">http://code.tutsplus.com/tutorials/intro-to-the-react-framework--net-35660</a></li>
+<li><a href="http://scotch.io/tutorials/javascript/getting-to-know-flux-the-react-js-architecture" target="_blank" rel="external">http://scotch.io/tutorials/javascript/getting-to-know-flux-the-react-js-architecture</a></li>
+</ul>
+<h2 id="Image_Reference">Image Reference</h2>
+<ul>
+<li><a href="http://wiredcraft.com/posts/2014/08/20/why-we-may-ditch-angularjs-for-react.html" target="_blank" rel="external">http://wiredcraft.com/posts/2014/08/20/why-we-may-ditch-angularjs-for-react.html</a></li>
+<li><a href="http://blog.stevepond.io/" target="_blank" rel="external">http://blog.stevepond.io/</a></li>
+<li><a href="http://www.slideshare.net/rmsguhan/react-meetup-mailonreact" target="_blank" rel="external">http://www.slideshare.net/rmsguhan/react-meetup-mailonreact</a></li>
+</ul>
+]]></content>
+    <category scheme="http://michaelhsu.tw/tags/spa/" term="SPA"/>
+    <category scheme="http://michaelhsu.tw/tags/f2e/" term="F2E"/>
+    <category scheme="http://michaelhsu.tw/tags/react/" term="React"/>
+    <category scheme="http://michaelhsu.tw/tags/flux/" term="Flux"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[SPA – 使用 Angular.js 實現前後端分離開發應用]]></title>
     <link href="http://michaelhsu.tw/2014/10/20/SPA/"/>
@@ -1642,95 +1684,5 @@
 </blockquote>
 ]]></content>
     <category scheme="http://michaelhsu.tw/tags/node-js/" term="node.js"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Ruby bits (block 篇)]]></title>
-    <link href="http://michaelhsu.tw/2013/04/23/2013-04-23-ruby-bits-1-part5/"/>
-    <id>http://michaelhsu.tw/2013/04/23/2013-04-23-ruby-bits-1-part5/</id>
-    <published>2013-04-22T21:51:11.000Z</published>
-    <updated>2014-09-18T14:00:09.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="目錄_(block、Proc、LAMBDA_篇)">目錄 (block、Proc、LAMBDA 篇)</h2>
-<ol>
-<li>YIELD</li>
-<li>Proc</li>
-<li>LAMBDA</li>
-</ol>
-<p><em>當 block 之後還需要被使用：Proc、LAMBDA</em><br><a id="more"></a></p>
-<h2 id="1-_YIELD（丟_block_進去）">1. YIELD（丟 block 進去）</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>call_this_block_twice</div><div class="line">  <span class="keyword">yield</span></div><div class="line">  <span class="keyword">yield</span> </div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">call_this_block_twice { puts <span class="string">"twitter"</span> }</div><div class="line"><span class="output"><span class="status">=&gt;</span> </span></div><div class="line">twitter</div><div class="line">twitter</div></pre></td></tr></table></figure>
-
-<h3 id="￼YIELD_-_ARGUMENTS">￼YIELD - ARGUMENTS</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>call_this_block</div><div class="line">  <span class="keyword">yield</span> <span class="string">"tweet"</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">call_this_block { |myarg| puts myarg.upcase }</div><div class="line"><span class="output"><span class="status">=&gt;</span> <span class="constant">TWEET</span></span></div></pre></td></tr></table></figure>
-
-<h3 id="￼YIELD_-_RETURN_VALUE">￼YIELD - RETURN VALUE</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>puts_this_block</div><div class="line">  puts <span class="keyword">yield</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">puts_this_block { <span class="string">"tweet"</span> }</div><div class="line"><span class="output"><span class="status">=&gt;</span> tweet</span></div></pre></td></tr></table></figure>
-
-<h3 id="￼YIELD_-_參數">￼YIELD - 參數</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>yield_name(name)</div><div class="line">  <span class="keyword">yield</span> name</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yield_name(<span class="string">"Eric"</span>) { |e| puts <span class="string">"My name is <span class="subst">#{e}</span>."</span> }</div><div class="line"><span class="output"><span class="status">=&gt;</span> <span class="constant">My</span> name is <span class="constant">Eric</span>.</span></div></pre></td></tr></table></figure>
-
-<h3 id="include_Enumerable（路邊撿到拿來用）">include <code>Enumerable</code>（路邊撿到拿來用）</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Timeline</div><div class="line">  def each</div><div class="line">  <span class="keyword">...</span></div><div class="line">  end</div><div class="line">  include Enumerable</div><div class="line">end</div></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">timeline.sort_by  <span class="list">{ |tweet| tweet.created_at }</span></div><div class="line">timeline.map      <span class="list">{ |tweet| tweet.status }</span></div><div class="line">timeline.find_all <span class="list">{ |tweet| tweet.status =~ /\@codeschool/ }</span></div></pre></td></tr></table></figure>
-
-<h2 id="2-_Proc_Proc-new_{block}_-call或&amp;">2. Proc <code>Proc.new {block}</code> <code>.call</code>或<code>&amp;</code></h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">my_proc</span> = Proc.new { <span class="title">puts</span> <span class="string">"tweet"</span> } </div><div class="line">my_proc.call <span class="comment"># =&gt; tweet</span></div></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">floats = [<span class="number">1.2</span>, <span class="number">3.45</span>, <span class="number">0</span>.<span class="number">91</span>, <span class="number">7.727</span>, <span class="number">11.42</span>, <span class="number">482.911</span>]</div><div class="line"></div><div class="line">round_down = <span class="constant">Proc</span>.new <span class="keyword">do</span> |e|</div><div class="line">    e.to_i</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">ints = floats.collect(&round_down)</div><div class="line"><span class="output"><span class="status">=&gt;</span> [<span class="number">1</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">482</span>]</span></div></pre></td></tr></table></figure>
-
-<h2 id="3-_LAMBDA_lambda_{block}_-call">3. LAMBDA  <code>lambda {block}</code> <code>.call</code></h2>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">my_proc = lambda { puts <span class="string">"tweet"</span> } </div><div class="line">my_proc.call  <span class="comment"># =&gt; tweet</span></div></pre></td></tr></table></figure>
-
-<h3 id="multiple_LAMBDAS（當作參數丟進去-call，而不用_yield）">multiple LAMBDAS（當作參數丟進去.call，而不用 yield）</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tweet</span></span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>post(success, error)</div><div class="line">￼   <span class="keyword">if</span> authenticate?(<span class="variable">@user</span>, <span class="variable">@password</span>)</div><div class="line">      success.call</div><div class="line">    <span class="keyword">else</span></div><div class="line">      error.call</div><div class="line">    <span class="keyword">end</span> </div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="title">tweet</span> = Tweet.new(<span class="string">'Ruby Bits!'</span>)</div><div class="line">success = -&gt; { <span class="title">puts</span> <span class="string">"Sent!"</span> }</div><div class="line"><span class="built_in">error</span> = -&gt; { <span class="title">raise</span> <span class="string">'Auth Error'</span> }</div><div class="line"></div><div class="line">tweet.post(success, <span class="built_in">error</span>)</div></pre></td></tr></table></figure>
-
-<h3 id="￼&amp;_LAMBDA_返回_BLOCK_（當原本需要的還是一個_block）">￼<code>&amp;</code> LAMBDA 返回 BLOCK （當原本需要的還是一個 block）</h3>
-<p><em>原本</em></p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tweets = [<span class="string">"First tweet"</span>, <span class="string">"Second tweet"</span>] </div><div class="line">tweets.each <span class="keyword">do</span> |tweet|</div><div class="line">  puts tweet</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-
-<p><em>使用 lambda</em> </p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tweets = [<span class="string">"First tweet"</span>, <span class="string">"Second tweet"</span>]</div><div class="line">printer = lambda { |tweet| puts tweet }</div><div class="line">tweets.each(&printer)</div></pre></td></tr></table></figure>
-
-<h3 id="互轉_Block_-&gt;_proc_-&gt;_block">互轉 Block -&gt; proc -&gt; block</h3>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Timeline</span></span></div><div class="line">  <span class="keyword">attr_accessor</span> <span class="symbol">:tweets</span></div><div class="line">  <span class="function"><span class="keyword">def</span> </span>each(&block)       <span class="comment"># (define) Block into proc</span></div><div class="line">    tweets.each(&block)  <span class="comment"># (calling)proc back into a Block</span></div><div class="line">  <span class="keyword">end</span> </div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
-
-<h3 id="&amp;#-to_proc_as_SYMBOL#TO_PROC_、_:_as_pretzel_colon"><code>&amp;#.to_proc</code> as SYMBOL#TO_PROC 、 <code>:</code> as pretzel colon</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="string">[[1,'a'],[2,'b'],[3,'c']]</span>.map { |e| e.first }</div><div class="line">等價於</div><div class="line"><span class="string">[[1,'a'],[2,'b'],[3,'c']]</span>.map(&:first.to_proc)</div><div class="line">等價於 縮寫後 </div><div class="line"><span class="string">[[1,'a'],[2,'b'],[3,'c']]</span>.map(&:first)</div><div class="line">#=&gt; [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>].inject{|sum, i| sum += i}</div><div class="line">等價於 縮寫後 </div><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>].inject(&<span class="symbol">:+</span>)</div><div class="line"><span class="comment">#=&gt; 15</span></div></pre></td></tr></table></figure>
-
-<h2 id="Reference">Reference</h2>
-<ul>
-<li><a href="http://stackoverflow.com/questions/1217088/what-does-mapname-mean-in-ruby" target="_blank" rel="external">http://stackoverflow.com/questions/1217088/what-does-mapname-mean-in-ruby</a></li>
-<li><a href="http://stackoverflow.com/questions/11856978/reference-to-a-method" target="_blank" rel="external">http://stackoverflow.com/questions/11856978/reference-to-a-method</a></li>
-</ul>
-]]></content>
-    <category scheme="http://michaelhsu.tw/tags/ruby/" term="ruby"/>
   </entry>
 </feed>

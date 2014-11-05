@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://michaelhsu.tw/2014/11/05/react-flux/</loc>
+    <lastmod>2014-11-05T13:38:31.000Z</lastmod>
+  </url>
+  <url>
     <loc>http://michaelhsu.tw/2014/10/20/SPA/</loc>
     <lastmod>2014-10-20T07:17:43.000Z</lastmod>
   </url>
@@ -9,11 +13,7 @@
     <lastmod>2014-09-18T14:24:17.000Z</lastmod>
   </url>
   <url>
-    <loc>http://michaelhsu.tw/2014/06/11/gulp-livereload/</loc>
-    <lastmod>2014-09-18T14:00:09.000Z</lastmod>
-  </url>
-  <url>
-    <loc>http://michaelhsu.tw/2014/05/06/R-on-Linux/</loc>
+    <loc>http://michaelhsu.tw/2013/04/21/2013-04-21-bash-shell-script/</loc>
     <lastmod>2014-09-18T14:00:09.000Z</lastmod>
   </url>
   <url>
@@ -69,11 +69,11 @@
     <lastmod>2014-09-18T14:00:09.000Z</lastmod>
   </url>
   <url>
-    <loc>http://michaelhsu.tw/2013/04/21/2013-04-21-try-r-learning/</loc>
+    <loc>http://michaelhsu.tw/2014/06/11/gulp-livereload/</loc>
     <lastmod>2014-09-18T14:00:09.000Z</lastmod>
   </url>
   <url>
-    <loc>http://michaelhsu.tw/2013/04/21/2013-04-21-bash-shell-script/</loc>
+    <loc>http://michaelhsu.tw/2013/04/21/2013-04-21-try-r-learning/</loc>
     <lastmod>2014-09-18T14:00:09.000Z</lastmod>
   </url>
   <url>
@@ -126,6 +126,10 @@
   </url>
   <url>
     <loc>http://michaelhsu.tw/2013/06/21/rhadoop-實作推薦系統/</loc>
+    <lastmod>2014-09-18T14:00:09.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://michaelhsu.tw/2014/05/06/R-on-Linux/</loc>
     <lastmod>2014-09-18T14:00:09.000Z</lastmod>
   </url>
   <url>
